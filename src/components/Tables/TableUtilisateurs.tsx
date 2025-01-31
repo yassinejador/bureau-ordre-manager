@@ -15,7 +15,7 @@ const UserList: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
 
   useEffect(() => {
-    // Simulation de données en attendant le backend
+    // Simulation de données
     const mockUsers: User[] = [
       { id: 1, name: "Mr Omar", email: "Mr-Omar@example.com", role: "Admin", unité: "Administration" },
       { id: 2, name: "Mme Jihan", email: "Mme-Jihan", role: "Doyen", unité: "Direction" },
