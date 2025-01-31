@@ -2,19 +2,21 @@ import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 
 import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
+import SwitcherThree from "@/components/Switchers/SwitcherFour";
 
 export const metadata: Metadata = {
-  title: "Next.js Tables | TailAdmin - Next.js Dashboard Template",
+  title: "Permissions",
   description:
-    "This is Next.js Tables page for TailAdmin - Next.js Tailwind CSS Admin Dashboard Template",
+    "Les permissions de ce role",
 };
 
-const TablesPage = () => {
+const Permissions = () => {
   return (
     <DefaultLayout>
-      <Breadcrumb pageName="Tables" />
+      <Breadcrumb pageName="Ajouter un role" />
+        <SwitcherThree />
     </DefaultLayout>
   );
 };
 
-export default TablesPage;
+export default Permissions;
