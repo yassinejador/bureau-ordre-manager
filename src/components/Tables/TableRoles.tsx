@@ -1,32 +1,33 @@
 import { ROLE } from "@/types/role";
 import Link from "next/link";
+import dateformat from "../../../helpers/dateformat";
 
 const TableRoles = ({ rolesData }: { rolesData: ROLE[] }) => {
   return (
     <div className="rounded-sm border border-stroke bg-white px-5 pb-5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5">
-      <h4 className="mb-6 text-xl font-semibold text-black dark:text-white">Top Channels</h4>
+      <h4 className="mb-6 text-xl font-semibold text-black dark:text-white">Role</h4>
 
       <div className="flex flex-col">
         {/* Table Header */}
         <div className="grid grid-cols-4 sm:grid-cols-4 rounded-sm bg-gray-200 dark:bg-meta-4">
           <div className="p-3 text-center font-medium uppercase text-black dark:text-white">id</div>
-          <div className="p-3 text-center font-medium uppercase text-black dark:text-white">Visitors</div>
-          <div className="p-3 text-center font-medium uppercase text-black dark:text-white">Revenues</div>
+          <div className="p-3 text-center font-medium uppercase text-black dark:text-white">Role</div>
+          <div className="p-3 text-center font-medium uppercase text-black dark:text-white">Date de Creation</div>
           <div className="p-3 text-center font-medium uppercase text-black dark:text-white">Permissions</div>
         </div>
 
         {/* Table Rows */}
-        {rolesData.map((role, index) => (
+        {rolesData.map((role) => (
           <div
             key={role.id}
             className={`grid grid-cols-4 sm:grid-cols-4 items-center border-b border-stroke dark:border-strokedark last:border-b-0`}
           >
             <div className="p-3 text-center text-black dark:text-white">{role.id}</div>
             <div className="p-3 text-center text-black dark:text-white">{role.role}</div>
-            <div className="p-3 text-center text-black dark:text-white">{role.date_creation}</div>
+            <div className="p-3 text-center text-black dark:text-white">{dateformat(new Date(role.date_creation))}</div>
             <div className="p-3 text-center text-black dark:text-white">
               <button className="hover:text-primary">
-                <Link href={`/permissions/${1}`}>
+                <Link href={`/permissions/${role.id}`}>
                 <svg
                   className="fill-current"
                   width="18"

@@ -11,18 +11,34 @@ export const metadata: Metadata = {
     "Liste des Roles",
 };
 
-const Roles = () => {
-    const rolesData : ROLE[] =  [
-      { id: 1, role: "Direction", date_creation: "01/01/2025" },
-      { id: 2, role: "Secrétariat général", date_creation: "01/01/2025" },
-      { id: 3, role: "Responsables de départements", date_creation: "01/01/2025" },
-      { id: 4, role: "Agents administratifs", date_creation: "01/01/2025" }
-    ]
+async function fetchRoles(): Promise<ROLE[]> {
+  try {
+    const res = await fetch(`${process.env.API_URL}/api/roles`, {
+      cache: "no-cache",
+    });
+    
+
+    if (!res.ok) {
+      throw new Error("Failed to fetch roles");
+    }
+
+    const data = await res.json();
+    return data.roles || [];
+  } catch (error) {
+    console.error("Erreur lors de la récupération des roles :", error);
+    return [];
+  }
+}
+
+
+const Roles = async () => {
+  const roles = await fetchRoles();
+
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Roles" />
       <div className="flex flex-col gap-10">
-        <TableRoles rolesData={rolesData}/>
+        <TableRoles rolesData={roles}/>
       </div>
     </DefaultLayout>
   );
