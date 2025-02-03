@@ -139,7 +139,7 @@ const menuGroups = [
         route: "#",
         children: [
           { label: "Ajouter un Role", route: "/forms/form-ajouter-role" },
-          { label: "Ajouter n Service", route: "/forms/form-ajouter-service" },
+          { label: "Ajouter un Service", route: "/forms/form-ajouter-service" },
         ],
       },
       {

@@ -1,28 +1,42 @@
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
-import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import { SERVICE } from "@/types/service";
 import TableServices from "@/components/Tables/TableServices";
+import { Metadata } from "next";
 
 
 export const metadata: Metadata = {
-  title: "Roles",
+  title: "Services",
   description:
-    "Liste des Roles",
+    "Liste des Services",
 };
 
-const Services = () => {
-    const ServicesData : SERVICE[] =  [
-      { id: 1, nom: "Service A", date_creation: "01/01/2025" },
-      { id: 2, nom: "Service A", date_creation: "01/01/2025" },
-      { id: 3, nom: "Service A", date_creation: "01/01/2025" },
-      { id: 4, nom: "Service A", date_creation: "01/01/2025" }
-    ]
+async function fetchServices(): Promise<SERVICE[]> {
+  try {
+    const res = await fetch(`${process.env.API_URL}/api/services`, {
+      cache: "no-cache",
+    });
+
+    if (!res.ok) {
+      throw new Error("Failed to fetch services");
+    }
+
+    const data = await res.json();
+    return data.services || [];
+  } catch (error) {
+    console.error("Erreur lors de la récupération des services :", error);
+    return [];
+  }
+}
+
+const Services = async () => {
+  const services = await fetchServices();
+
   return (
     <DefaultLayout>
-      <Breadcrumb pageName="Roles" />
+      <Breadcrumb pageName="Services" />
       <div className="flex flex-col gap-10">
-        <TableServices services={ServicesData}/>
+        <TableServices services={services} />
       </div>
     </DefaultLayout>
   );
