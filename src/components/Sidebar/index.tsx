@@ -74,26 +74,26 @@ const menuGroups = [
       {
         icon: (
           <svg
-            className="fill-current"
-            width="18"
-            height="18"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M12 13l8-5H4l8 5z"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-            />
-            <path
-              d="M21 6v12H3V6h18z"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-            />
-          </svg>
+  className="fill-current"
+  width="18"
+  height="18"
+  viewBox="0 0 24 24"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path
+    d="M12 13l8-5H4l8 5z"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+  />
+  <path
+    d="M21 6v12H3V6h18z"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+  />
+</svg>
 
         ),
         label: "Gestion Courriers",
@@ -117,10 +117,10 @@ const menuGroups = [
           },
           {
             label: "Couries Archivées",
-            route: "/couriers/courier-archive",
+            route: "/couriers/courrier-archive", 
           },
         ],
-
+       
       },
       {
         icon: (
@@ -154,29 +154,29 @@ const menuGroups = [
             />
           </svg>
         ),
+        
 
-
-        label: "Gestion Utilisateurs",
-        route: "#",
-        children: [
-          {
-            label: "Listes",
+            label: "Gestion Utilisateurs",
             route: "#",
             children: [
-              { label: "Listes des utilisateurs", route: "/utilisateur" },
-              { label: "Listes des Rôles", route: "/roles" },
-              { label: "Listes des Services", route: "/services" },
+              {
+                label: "Listes",
+                route: "#",
+                children: [
+                  { label: "Listes des utilisateurs", route: "/utilisateur" },
+                  { label: "Listes des Rôles", route: "/roles" },
+                  { label: "Listes des Services", route: "/services" },
+                ],
+              },
+              {
+                label: "Formulaires d'Ajout",
+                route: "#",
+                children: [
+                  { label: "Ajouter un Rôle", route: "/forms/form-ajouter-role" },
+                  { label: "Ajouter un Service", route: "/forms/form-ajouter-service" },
+                ],
+              },
             ],
-          },
-          {
-            label: "Formulaires d'Ajout",
-            route: "#",
-            children: [
-              { label: "Ajouter un Rôle", route: "/forms/form-ajouter-role" },
-              { label: "Ajouter un Service", route: "/forms/form-ajouter-service" },
-            ],
-          },
-        ],
       },
       {
         icon: (
@@ -270,7 +270,7 @@ const menuGroups = [
         ),
         label: "Historique",
         route: "/logs",
-
+       
       },
 
 

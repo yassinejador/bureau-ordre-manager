@@ -1,24 +1,21 @@
 "use client";
 
 import React, { useState } from "react";
-interface AjouterEtablissementProps {
-  addEtablissement: (newEtablissement: { 
-    nom: string; 
-    ville: string;
-    contact: string;
-    fax: string;
-    adresse: string }) => void;
-}
+import { ETABLISSEMENT } from "@/types/etablissement"; // Assurez-vous du bon chemin d'import
+
+type AjouterEtablissementProps = {
+  addEtablissement: (newEtablissement: ETABLISSEMENT) => void;
+};
+
 const AjouterEtablissement: React.FC<AjouterEtablissementProps> = ({ addEtablissement }) => {
-  const [newEtablissement, setNewEtablissement] = useState({
-    nom: "",
-    ville: "",
-    contact: "",
-    fax: "",
+  const [newEtablissement, setNewEtablissement] = useState<ETABLISSEMENT>({
+    id: 0,
+    intitule: "",
     adresse: "",
+    ville: "",
+    fax: "",
+    telephone: "",
   });
-
-
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -30,37 +27,37 @@ const AjouterEtablissement: React.FC<AjouterEtablissementProps> = ({ addEtabliss
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (newEtablissement.nom && newEtablissement.ville) {
+    if (newEtablissement.intitule && newEtablissement.ville) {
       addEtablissement(newEtablissement);
       setNewEtablissement({
-        nom: "",
-        ville: "",
-        contact: "",
-        fax: "",
+        id: 0,
+        intitule: "",
         adresse: "",
+        ville: "",
+        fax: "",
+        telephone: "",
       });
     }
   };
 
   return (
-    
     <div className="bg-white p-6 rounded-md shadow-md w-full max-w-md mx-auto">
-      <h2 className="text-xl font-bold mb-4">Ajouter un Établissement</h2>
+      <h1 className="mb-6 text-xl font-semibold text-black dark:text-white">Formulaire Pour Ajouter un Établissement</h1>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
-          <label htmlFor="nom" className="block text-sm font-medium text-gray-700">Nom</label>
+          <label htmlFor="intitule" className="p-3 text-center font-medium uppercase text-black dark:text-white">Intitulé</label>
           <input
             type="text"
-            id="nom"
-            name="nom"
-            value={newEtablissement.nom}
+            id="intitule"
+            name="intitule"
+            value={newEtablissement.intitule}
             onChange={handleChange}
             required
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="ville" className="block text-sm font-medium text-gray-700">Ville</label>
+          <label htmlFor="ville" className="p-3 text-center font-medium uppercase text-black dark:text-white">Ville</label>
           <input
             type="text"
             id="ville"
@@ -72,18 +69,18 @@ const AjouterEtablissement: React.FC<AjouterEtablissementProps> = ({ addEtabliss
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="contact" className="block text-sm font-medium text-gray-700">Contact</label>
+          <label htmlFor="telephone" className="p-3 text-center font-medium uppercase text-black dark:text-white">Téléphone</label>
           <input
             type="text"
-            id="contact"
-            name="contact"
-            value={newEtablissement.contact}
+            id="telephone"
+            name="telephone"
+            value={newEtablissement.telephone}
             onChange={handleChange}
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="fax" className="block text-sm font-medium text-gray-700">Fax</label>
+          <label htmlFor="fax" className="p-3 text-center font-medium uppercase text-black dark:text-white">Fax</label>
           <input
             type="text"
             id="fax"
@@ -94,7 +91,7 @@ const AjouterEtablissement: React.FC<AjouterEtablissementProps> = ({ addEtabliss
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="adresse" className="block text-sm font-medium text-gray-700">Adresse</label>
+          <label htmlFor="adresse" className="p-3 text-center font-medium uppercase text-black dark:text-white">Adresse</label>
           <input
             type="text"
             id="adresse"
@@ -104,7 +101,8 @@ const AjouterEtablissement: React.FC<AjouterEtablissementProps> = ({ addEtabliss
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
           />
         </div>
-        <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600">
+        
+        <button type="submit" className="w-full px-4 font-medium py-2 bg-blue-600 text-white rounded-sm hover:bg-blue-700">
           Ajouter l'Établissement
         </button>
       </form>

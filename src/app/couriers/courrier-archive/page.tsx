@@ -1,18 +1,17 @@
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
-import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
-import TableCouriersArchive from "@/components/Tables/TableCouriersArchive";
+import TableCourriersArchive from "@/components/Tables/TableCourriersArchive";
 
 
-const CourierArchive = () => {
+const CourRierArchive = () => {
 
 return (
   <DefaultLayout>
     <Breadcrumb pageName="Les Couriers Archivées" />
     <div className="flex flex-col gap-10">
-      <TableCouriersArchive />
+      <TableCourriersArchive />
     </div>
   </DefaultLayout>
 );
 };
-export default CourierArchive;
+export default CourRierArchive;
