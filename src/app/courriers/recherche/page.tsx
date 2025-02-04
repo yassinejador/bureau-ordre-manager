@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import TableArrives from "@/components/Tables/TableArrives";
+import SearchForm from "@/components/BarreRecherche/barrerecherche";
 export const metadata: Metadata = {
   title: "Next.js Form Elements | TailAdmin - Next.js Dashboard Template",
   description:
@@ -12,8 +13,8 @@ export const metadata: Metadata = {
 const FormElementsPage = () => {
   return (
     <DefaultLayout>
-      <Breadcrumb pageName="Arrivés" />
-      <TableArrives/>
+      <Breadcrumb pageName="Recherché" />
+      <SearchForm/>
     </DefaultLayout>
   );
 };

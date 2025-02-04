@@ -1,19 +1,22 @@
+import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
+
 import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
-import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
-import CourriersDepartsForm from "@/components/courriers/CourriersDepartsForm";
+import TableDeparts from "@/components/Tables/TablesDepart";
 
 export const metadata: Metadata = {
-  title: "Créer Courrier Départ - Bureau d'Ordre Digital",
+  title: "Next.js Form Layout | TailAdmin - Next.js Dashboard Template",
   description:
-    "Formulaire pour créer un courrier départ dans le système de gestion du bureau d'ordre - FS El Jadida",
+    "This is Next.js Form Layout page for TailAdmin - Next.js Tailwind CSS Admin Dashboard Template",
 };
 
-export default function CourriersDeparts() {
+const FormLayout = () => {
   return (
     <DefaultLayout>
-      <Breadcrumb prefix="courriers" pageName="Départ" />
-      <CourriersDepartsForm typeCourriers="Départ" />
+      <Breadcrumb pageName="Départs" />
+      <TableDeparts />
     </DefaultLayout>
   );
-}
+};
+
+export default FormLayout;
