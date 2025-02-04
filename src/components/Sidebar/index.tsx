@@ -100,12 +100,13 @@ const menuGroups = [
         route: "#",
         children: [
           {
-            label: "Listes",
-            route: "#",
-            children: [
-              { label: "Liste Courrier Arrivés", route: "/listes/utilisateurs" },
-              { label: "Liste Courrier Depats", route: "/listes/roles" },
-            ],
+            label: "Courriers",
+        route: "#",
+        children: [
+          { label: "Courrier Arrivés", route: "/courriers/arrives" },
+          { label: "Courrier Depats", route: "/courriers/departs" },
+          { label: "Recherche", route: "/courriers/recherche" },
+        ],
           },
           {
             label: "Formulaires d'Ajout",
