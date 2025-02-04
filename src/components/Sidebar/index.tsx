@@ -74,54 +74,66 @@ const menuGroups = [
       {
         icon: (
           <svg
-  className="fill-current"
-  width="18"
-  height="18"
-  viewBox="0 0 24 24"
-  fill="none"
-  xmlns="http://www.w3.org/2000/svg"
->
-  <path
-    d="M12 13l8-5H4l8 5z"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-  />
-  <path
-    d="M21 6v12H3V6h18z"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-  />
-</svg>
-
+            className="fill-current"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M12 13l8-5H4l8 5z"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            />
+            <path
+              d="M21 6v12H3V6h18z"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            />
+          </svg>
         ),
         label: "Gestion Courriers",
         route: "#",
         children: [
           {
             label: "Courriers",
-        route: "#",
-        children: [
-          { label: "Courrier Arrivés", route: "/courriers/arrives" },
-          { label: "Courrier Depats", route: "/courriers/departs" },
-          { label: "Recherche", route: "/courriers/recherche" },
-        ],
+            route: "#",
+            children: [
+              { label: "Courrier Arrivés", route: "/courriers/arrives" },
+              { label: "Courrier Depats", route: "/courriers/departs" },
+              { label: "Recherche", route: "/courriers/recherche" },
+            ],
           },
           {
             label: "Formulaires d'Ajout",
             route: "#",
             children: [
-              { label: "Ajouter Courrier Arrivés", route: "/forms/form-ajouter-role" },
-              { label: "Ajouter Courrier Depats", route: "/forms/form-ajouter-service" },
+              {
+                label: "Créer Courriers Arrivés",
+                route: "/courriers/arrives/new",
+              },
+              {
+                label: "Créer Courriers Départs",
+                route: "/courriers/departs/new",
+              },
+              {
+                label: "Ajouter Role",
+                route: "/forms/form-ajouter-role",
+              },
+              {
+                label: "Ajouter Service",
+                route: "/forms/form-ajouter-service",
+              },
             ],
           },
           {
             label: "Couries Archivées",
-            route: "/couriers/courrier-archive", 
+            route: "/couriers/courrier-archive",
           },
         ],
-       
       },
       {
         icon: (
@@ -155,29 +167,31 @@ const menuGroups = [
             />
           </svg>
         ),
-        
 
-            label: "Gestion Utilisateurs",
+        label: "Gestion Utilisateurs",
+        route: "#",
+        children: [
+          {
+            label: "Listes",
             route: "#",
             children: [
+              { label: "Listes des utilisateurs", route: "/utilisateur" },
+              { label: "Listes des Rôles", route: "/roles" },
+              { label: "Listes des Services", route: "/services" },
+            ],
+          },
+          {
+            label: "Formulaires d'Ajout",
+            route: "#",
+            children: [
+              { label: "Ajouter un Rôle", route: "/forms/form-ajouter-role" },
               {
-                label: "Listes",
-                route: "#",
-                children: [
-                  { label: "Listes des utilisateurs", route: "/utilisateur" },
-                  { label: "Listes des Rôles", route: "/roles" },
-                  { label: "Listes des Services", route: "/services" },
-                ],
-              },
-              {
-                label: "Formulaires d'Ajout",
-                route: "#",
-                children: [
-                  { label: "Ajouter un Rôle", route: "/forms/form-ajouter-role" },
-                  { label: "Ajouter un Service", route: "/forms/form-ajouter-service" },
-                ],
+                label: "Ajouter un Service",
+                route: "/forms/form-ajouter-service",
               },
             ],
+          },
+        ],
       },
       {
         icon: (
@@ -202,13 +216,15 @@ const menuGroups = [
               fill=""
             />
           </svg>
-
         ),
         label: "Gestion Etablissement",
         route: "#",
         children: [
           { label: "Listes Etablissements", route: "/etablissements" },
-          { label: "Ajouter Etablissement", route: "/forms/form-ajouter-etablissements" },
+          {
+            label: "Ajouter Etablissement",
+            route: "/forms/form-ajouter-etablissements",
+          },
         ],
       },
 
@@ -235,7 +251,6 @@ const menuGroups = [
               fill=""
             />
           </svg>
-
         ),
         label: "Les Listes",
         route: "#",
@@ -267,14 +282,10 @@ const menuGroups = [
               fill=""
             />
           </svg>
-
         ),
         label: "Historique",
         route: "/logs",
-       
       },
-
-
     ],
   },
 ];
@@ -286,15 +297,16 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
   return (
     <ClickOutside onClick={() => setSidebarOpen(false)}>
       <aside
-        className={`fixed left-0 top-0 z-9999 flex h-screen w-72.5 flex-col overflow-y-hidden bg-black duration-300 ease-linear dark:bg-boxdark lg:translate-x-0 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"
-          }`}
+        className={`fixed left-0 top-0 z-9999 flex h-screen w-72.5 flex-col overflow-y-hidden bg-black duration-300 ease-linear dark:bg-boxdark lg:translate-x-0 ${
+          sidebarOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
       >
-        {/* <!-- SIDEBAR HEADER --> */}
-        <div className="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5">
+        <div className="flex items-center justify-center px-6 py-5.5 lg:py-6.5">
           <Link href="/">
             <Image
-              width={176}
-              height={32}
+              className="rounded-md"
+              width={150}
+              height={30}
               src={"/images/logo/logo_ucd.png"}
               alt="Logo"
               priority
@@ -321,17 +333,13 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
             </svg>
           </button>
         </div>
-        {/* <!-- SIDEBAR HEADER --> */}
-
         <div className="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear">
-          {/* <!-- Sidebar Menu --> */}
           <nav className="mt-5 px-4 py-4 lg:mt-9 lg:px-6">
             {menuGroups.map((group, groupIndex) => (
               <div key={groupIndex}>
                 <h3 className="mb-4 ml-4 text-sm font-semibold text-bodydark2">
                   {group.name}
                 </h3>
-
                 <ul className="mb-6 flex flex-col gap-1.5">
                   {group.menuItems.map((menuItem, menuIndex) => (
                     <SidebarItem
@@ -345,7 +353,6 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               </div>
             ))}
           </nav>
-          {/* <!-- Sidebar Menu --> */}
         </div>
       </aside>
     </ClickOutside>

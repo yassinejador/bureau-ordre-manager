@@ -14,7 +14,7 @@ const FormLayout = () => {
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Départs" />
-      <TableDeparts/>
+      <TableDeparts />
     </DefaultLayout>
   );
 };
