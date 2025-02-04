@@ -106,8 +106,8 @@ const menuGroups = [
         label: "Courriers",
         route: "#",
         children: [
-          { label: "Courrier Arrivés", route: "/forms/form-elements" },
-          { label: "Courrier Depats", route: "/forms/form-layout" },
+          { label: "Créer Courriers Arrivés", route: "/courriers/arrives" },
+          { label: "Créer Courriers Départs", route: "/courriers/departs" },
         ],
       },
 
@@ -161,12 +161,12 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        {/* <!-- SIDEBAR HEADER --> */}
-        <div className="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5">
+        <div className="flex items-center justify-center px-6 py-5.5 lg:py-6.5">
           <Link href="/">
             <Image
-              width={176}
-              height={32}
+              className="rounded-md"
+              width={150}
+              height={30}
               src={"/images/logo/logo_ucd.png"}
               alt="Logo"
               priority
@@ -193,17 +193,13 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
             </svg>
           </button>
         </div>
-        {/* <!-- SIDEBAR HEADER --> */}
-
         <div className="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear">
-          {/* <!-- Sidebar Menu --> */}
           <nav className="mt-5 px-4 py-4 lg:mt-9 lg:px-6">
             {menuGroups.map((group, groupIndex) => (
               <div key={groupIndex}>
                 <h3 className="mb-4 ml-4 text-sm font-semibold text-bodydark2">
                   {group.name}
                 </h3>
-
                 <ul className="mb-6 flex flex-col gap-1.5">
                   {group.menuItems.map((menuItem, menuIndex) => (
                     <SidebarItem
@@ -217,7 +213,6 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               </div>
             ))}
           </nav>
-          {/* <!-- Sidebar Menu --> */}
         </div>
       </aside>
     </ClickOutside>
