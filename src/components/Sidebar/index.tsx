@@ -176,6 +176,7 @@ const menuGroups = [
             label: "Formulaires d'Ajout",
             route: "#",
             children: [
+              { label: "Ajouter un Utilisateur", route: "/utilisateur/nouveau" },
               { label: "Ajouter un Rôle", route: "/forms/form-ajouter-role" },
               {
                 label: "Ajouter un Service",
