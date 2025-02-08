@@ -2,7 +2,7 @@ import pool from '../db';
 
 // les requêtes des services
 export const fetchServices = async () => {
-  const [services] = await pool.query('SELECT * FROM services ORDER BY  id DESC, date_creation DESC');
+  const [services] = await pool.query('SELECT * FROM services ORDER BY id DESC');
   return services;
 };
 
