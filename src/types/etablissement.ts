@@ -3,6 +3,6 @@ export type ETABLISSEMENT = {
   intitule: string;
   adresse: string;
   ville: string;
-  fax: string;
-  telephone: string;
+  fax: number;
+  telephone: number;
 }

@@ -118,15 +118,7 @@ const menuGroups = [
               {
                 label: "Créer Courriers Départs",
                 route: "/courriers/departs/new",
-              },
-              {
-                label: "Ajouter Role",
-                route: "/forms/form-ajouter-role",
-              },
-              {
-                label: "Ajouter Service",
-                route: "/forms/form-ajouter-service",
-              },
+              }
             ],
           },
           {
@@ -184,6 +176,7 @@ const menuGroups = [
             label: "Formulaires d'Ajout",
             route: "#",
             children: [
+              { label: "Ajouter un Utilisateur", route: "/utilisateur/nouveau" },
               { label: "Ajouter un Rôle", route: "/forms/form-ajouter-role" },
               {
                 label: "Ajouter un Service",
