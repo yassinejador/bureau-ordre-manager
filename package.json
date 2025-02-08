@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "apexcharts": "^4.4.0",
     "bcryptjs": "^2.4.3",
     "flatpickr": "^4.6.13",
     "jsonwebtoken": "^9.0.2",
