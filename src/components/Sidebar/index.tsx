@@ -173,15 +173,13 @@ const menuGroups = [
             ],
           },
           {
-            label: "Formulaires d'Ajout",
+            label: "Formulaires d'Ajoute",
             route: "#",
             children: [
               { label: "Ajouter un Utilisateur", route: "/utilisateur/nouveau" },
               { label: "Ajouter un Rôle", route: "/forms/form-ajouter-role" },
-              {
-                label: "Ajouter un Service",
-                route: "/forms/form-ajouter-service",
-              },
+              { label: "Ajouter une Permission", route: "/forms/form-ajouter-permission"},
+              { label: "Ajouter un Service", route: "/forms/form-ajouter-service"},
             ],
           },
         ],
@@ -221,37 +219,6 @@ const menuGroups = [
         ],
       },
 
-      {
-        icon: (
-          <svg
-            className="fill-current"
-            width="18"
-            height="18"
-            viewBox="0 0 18 18"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M2.25 4.5C2.25 4.08579 2.58579 3.75 3 3.75H15C15.4142 3.75 15.75 4.08579 15.75 4.5C15.75 4.91421 15.4142 5.25 15 5.25H3C2.58579 5.25 2.25 4.91421 2.25 4.5Z"
-              fill=""
-            />
-            <path
-              d="M2.25 9C2.25 8.58579 2.58579 8.25 3 8.25H15C15.4142 8.25 15.75 8.58579 15.75 9C15.75 9.41421 15.4142 9.75 15 9.75H3C2.58579 9.75 2.25 9.41421 2.25 9Z"
-              fill=""
-            />
-            <path
-              d="M2.25 13.5C2.25 13.0858 2.58579 12.75 3 12.75H15C15.4142 12.75 15.75 13.0858 15.75 13.5C15.75 13.9142 15.4142 14.25 15 14.25H3C2.58579 14.25 2.25 13.9142 2.25 13.5Z"
-              fill=""
-            />
-          </svg>
-        ),
-        label: "Les Listes",
-        route: "#",
-        children: [
-          { label: "Roles", route: "/roles" },
-          { label: "Services", route: "/services" },
-        ],
-      },
       {
         icon: (
           <svg

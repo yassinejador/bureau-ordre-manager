@@ -31,8 +31,8 @@ const FormLayout = () => {
       setNomService("");
       setTimeout(() => {
         setMessage(""); // Masque l'alerte après 5 secondes
-      }, 7000);
-      router.push("/services")
+        router.push("/services")
+      }, 5000);
     } else {
       setMessage(data.error || "Une erreur s'est produite.");
     }
