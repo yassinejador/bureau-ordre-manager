@@ -5,9 +5,10 @@ export type USER = {
   nom: string;
   prenom: string;
   role: string;
-  roleId: number;
-  etablissement: string;
   service: string;
-  etablissementId: number;
-  serviceId: number;
+  etablissement: string;
+  role_id: number;
+  etablissement_id: number;
+  service_id: number;
+  archived: boolean;
 }

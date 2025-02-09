@@ -1,3 +1,5 @@
 export type PERMISSION = {
-    [key: string]: boolean;
+    id: number,
+    nom: string,
+    date_creation: string,
 };

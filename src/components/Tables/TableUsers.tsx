@@ -1,67 +1,103 @@
 "use client";
-
-import React, {useState} from "react";
+import { USER } from "@/types/users";
+import Swal from 'sweetalert2';
+import Link from 'next/link'; 
+import { useState } from "react";
+import UserForm from "@/components/forms/PageListeUtilisateur/UserForm"; 
+import  DownloadForm  from "@/components/forms/PageListeUtilisateur/DownloadForm"; 
 import { FaPlus } from "react-icons/fa"; 
-import Link from "next/link";
-import { ETABLISSEMENT } from "@/types/etablissement";
-import  DownloadForm  from "@/components/forms/PageListeEtablissement/DownloadForm"; 
 
 
-type TableEtablissementsProps = {
-  etablissements: ETABLISSEMENT[];
-  setEtablissements?: (etablissements: ETABLISSEMENT[] | ((prevEtablissements: ETABLISSEMENT[]) => ETABLISSEMENT[])) => void; // Définir setUsers comme prop
+type TableUsersProps = {
+  users: USER[];
+  setUsers?: (users: USER[] | ((prevUsers: USER[]) => USER[])) => void; // Définir setUsers comme prop
 };
 
-const TableEtablissement = ({etablissements} : {etablissements: ETABLISSEMENT[]}) => {
-  const [selectedEtablissement, setSelectedEtablissement] = useState<ETABLISSEMENT | null>(null);
+const TableUsers = ({ users, setUsers }: TableUsersProps) => { 
+  const [selectedUser, setSelectedUser] = useState<USER | null>(null);
+const [editingUser, setEditingUser] = useState<USER | null>(null);
 
-  const [editingEtablissement, setEditingEtablissement] = useState<ETABLISSEMENT | null>(null);
+const handleEdit = (user: USER) => {
+  console.log("🔍 Utilisateur sélectionné pour modification:", user);
+  setEditingUser(user);
+};
 
-  const handleEdit = (etablissement: ETABLISSEMENT) => {
-    console.log("🔍 Utilisateur sélectionné pour modification:", etablissement);
-    setEditingEtablissement(etablissement);
-  };
+  
+//Action pour supprimer un utilisateur 
+  const onArchive = async (id: number) => {
+    
+      const result = await Swal.fire({
+        title: "Êtes-vous sûr ?",
+        text: "Cet utilisateur sera supprimer",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Oui, supprimer",
+        cancelButtonText: "Annuler",
+      });
+    
+      if (!result.isConfirmed) return;
+    
+      try {
+        const response = await fetch('/api/archiveUser', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id }),
+        });
+    
+        if (!response.ok) throw new Error('Échec de l\'archivage');
+    
+        Swal.fire("Archivé !", "L'utilisateur a été supprimer avec succès.", "success");
+        //  Rafraîchir la liste des utilisateurs
+      } catch (error) {
+        console.error('Erreur:', error);
+        Swal.fire("Erreur", "Une erreur s'est produite.", "error");
+      }
+    };
+    
 
   return (
-    <div className="bg-gray-100 min-h-screen p-4">
-  <div className="container mx-auto">
-    {/* Header */}
-    <div className="bg-white text-black p-4 rounded-t-lg flex items-center justify-between  rounded-sm border border-stroke bg-white px-5 pb-5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5">
-      <h1  className=" mt-4 mb-6 text-xl font-semibold text-black dark:text-white">Liste des Établissements</h1>
-      <Link href="/forms/form-ajouter-etablissements">
-        <button className="bg-blue-600 text-white p-2 rounded-full hover:bg-gray-200 transition duration-200 flex items-center justify-center w-12 h-12">
+    <div className="rounded-sm border border-stroke bg-white px-5 pb-5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5">
+          <div className="bg-white text-black p-4 rounded-t-lg flex items-center justify-between  rounded-sm border border-stroke bg-white px-5 pb-5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5">
+
+          <h4 className="mb-6 text-xl font-semibold text-black dark:text-white">Liste des Utilisateurs</h4>
+          <Link href="/forms/form-ajouter-etablissements">
+         <button className="bg-blue-600 text-white p-2 rounded-full hover:bg-gray-200 transition duration-200 flex items-center justify-center w-12 h-12">
           <FaPlus size={25} />
           
-        </button>
-      </Link>
-    </div>
-       {/* Table */}
-       <div className="flex flex-col">
-  {/* Table Header */}
-  <div className="grid grid-cols-7 sm:grid-cols-7 rounded-sm bg-gray-200 dark:bg-meta-4">
-    <div className="p-3 text-center font-medium uppercase text-black dark:text-white">ID</div>
-    <div className="p-3 text-center font-medium uppercase text-black dark:text-white">Intitule</div>
-    <div className="p-3 text-center font-medium uppercase text-black dark:text-white">Ville</div>
-    <div className="p-3 text-center font-medium uppercase text-black dark:text-white">Contact</div>
-    <div className="p-3 text-center font-medium uppercase text-black dark:text-white">Fax</div>
-    <div className="p-3 text-center font-medium uppercase text-black dark:text-white">Adresse</div>
-    <div className="p-3 text-center font-medium uppercase text-black dark:text-white">Actions</div>
-  </div>
+         </button>
+           </Link>
+          </div> 
 
-  {/* Table Rows */}
-  {etablissements.map((etablissement) => (
-    <div
-      key={etablissement.id}
-      className="grid grid-cols-7 sm:grid-cols-7 bg-white items-center border-b border-stroke dark:border-strokedark last:border-b-0"
-    >
-      <div className="p-3 text-center text-black dark:text-white">{etablissement.id}</div>
-      <div className="p-3 text-center text-black dark:text-white">{etablissement.intitule}</div>
-      <div className="p-3 text-center text-black dark:text-white">{etablissement.ville}</div>
-      <div className="p-3 text-center text-black dark:text-white">{etablissement.telephone}</div>
-      <div className="p-3 text-center text-black dark:text-white">{etablissement.fax}</div>
-      <div className="p-3 text-center text-black dark:text-white">{etablissement.adresse}</div>
-      <div className="p-3 text-center text-black dark:text-white">
-      <button onClick={() => setEditingEtablissement(etablissement)} className="hover:text-primary">
+
+        <div className="flex flex-col">
+           {/* Table Header */}
+          <div className="grid grid-cols-7 sm:grid-cols-7 rounded-sm bg-gray-200 dark:bg-meta-4">
+         
+            
+                <div className="p-3 text-center font-medium uppercase text-black dark:text-white">ID</div>
+                <div className="p-3 text-center font-medium uppercase text-black dark:text-white">Nom</div>
+                <div className="p-3 text-center font-medium uppercase text-black dark:text-white">Email</div>
+                <div className="p-3 text-center font-medium uppercase text-black dark:text-white">Rôle</div>
+                <div className="p-3 text-center font-medium uppercase text-black dark:text-white">Service</div>
+                <div className="p-3 text-center font-medium uppercase text-black dark:text-white">Etabllissement</div>
+                <div className="p-3 text-center font-medium uppercase text-black dark:text-white">Actions</div>
+             
+          </div>
+          {/* Table Rows */}
+              {users.map((user) => (
+                <div key={user.id}
+                className={`grid grid-cols-7 sm:grid-cols-7 items-center border-b border-stroke dark:border-strokedark last:border-b-0`}
+                >
+                  <div className="p-3 text-center text-black dark:text-white">{user.id}</div>
+                  <div className="p-3 text-center text-black dark:text-white">{user.nom} </div>
+                  <div className="p-3 text-center text-black dark:text-white">{user.email}</div>
+                  <div className="p-3 text-center text-black dark:text-white">{user.role}</div>
+                  <div className="p-3 text-center text-black dark:text-white">{user.service}</div>
+                  <div className="p-3 text-center text-black dark:text-white">{user.etablissement}</div>
+                  <div className="p-3 text-center text-black dark:text-white">
+                  <button onClick={() => setEditingUser(user)} className="hover:text-primary">
                       <svg
                         className="fill-current"
                         width="18"
@@ -78,7 +114,8 @@ const TableEtablissement = ({etablissements} : {etablissements: ETABLISSEMENT[]}
                        />
                        </svg>
               </button>
-                    <button className="hover:text-primary">
+              
+               <button onClick={() => onArchive(user.id)} className="hover:text-primary">
                       <svg
                         className="fill-current"
                         width="18"
@@ -105,7 +142,7 @@ const TableEtablissement = ({etablissements} : {etablissements: ETABLISSEMENT[]}
                         />
                       </svg>
                     </button>
-                    <button onClick={() => setSelectedEtablissement(etablissement)}  className="hover:text-primary">
+                    <button onClick={() => setSelectedUser(user)} className="hover:text-primary">
                       <svg
                         className="fill-current"
                         width="18"
@@ -124,20 +161,33 @@ const TableEtablissement = ({etablissements} : {etablissements: ETABLISSEMENT[]}
                         />
                       </svg>
                     </button>
+                    
                   </div>
                   </div>
-                  
               ))}
-            
-
-            {selectedEtablissement && (
-        <DownloadForm etablissement={selectedEtablissement} onClose={() => setSelectedEtablissement(null)} />
+              
+              {editingUser && (
+  <UserForm 
+    user={editingUser} 
+    onClose={() => setEditingUser(null)} 
+    onUpdate={(updatedUser) => {
+      if (setUsers)
+      setUsers((prevUsers) =>
+        prevUsers.map((user) =>
+          user.id === updatedUser.id ? updatedUser : user
+        )
+      );
+      setEditingUser(null); // Fermer le modal après mise à jour
+    }} 
+  />
+)}
+    {selectedUser && (
+        <DownloadForm user={selectedUser} onClose={() => setSelectedUser(null)} />
       )}      
-         </div>
       </div>
- </div>
-
+    </div>
   );
 };
 
-export default TableEtablissement;
+export default TableUsers;
+
