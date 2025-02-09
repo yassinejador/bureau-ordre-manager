@@ -169,6 +169,7 @@ const menuGroups = [
             children: [
               { label: "Listes des utilisateurs", route: "/utilisateur" },
               { label: "Listes des Rôles", route: "/roles" },
+              { label: "Listes des Permissions", route: "/permissions" },
               { label: "Listes des Services", route: "/services" },
             ],
           },
