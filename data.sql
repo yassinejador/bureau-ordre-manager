@@ -8,16 +8,16 @@ INSERT INTO roles (role, date_creation) VALUES
 ('Agents administratifs', CURDATE());
 
 -- Insertion des permissions
-INSERT INTO permissions (nom) VALUES 
-('Accéder au tableau de bord'),
-('Créer un nouveau courrier arriver'),
-('Créer un nouveau courrier depart'),
-('Supprimer un courrier'),
-('Archiver un courrier'),
-('Générer des rapports mensuels et annuels'),
-('Créer un role'),
-('Gérer les permissions'),
-('Consulter la liste des utilisateurs');
+INSERT INTO permissions (nom, date_creation) VALUES 
+('Accéder au tableau de bord', now()),
+('Créer un nouveau courrier arriver', now()),
+('Créer un nouveau courrier depart', now()),
+('Supprimer un courrier', now()),
+('Archiver un courrier', now()),
+('Générer des rapports mensuels et annuels', now()),
+('Créer un role', now()),
+('Gérer les permissions', now()),
+('Consulter la liste des utilisateurs', now());
 
 
 -- Insertion des établissements
@@ -33,9 +33,7 @@ INSERT INTO Services (nom, date_creation) VALUES
 -- Insertion des utilisateurs
 INSERT INTO users (email, password, nom, prenom, role_id, etablissement_id, service_id, date_creation) VALUES
 ('admin@example.com', 'password123', 'Doe', 'John', 1, 1, 1, CURDATE()),
-('user@example.com', 'password123', 'Smith', 'Alice', 2, 2, 2, CURDATE()),
-('user.user@fs.ucd.ac.ma', '$2a$10$7C1/qUL/iMD8i.HUDzDABuuYXuxtZLI1hYnlgKlrXADRfANLpLBd6', 'User', 'User', 1, 1, 1, CURDATE()), -- password: User@User
-('user.user1@fs.ucd.ac.ma', '$2a$10$2fcilhpvj4zlBw8RsVyvW.99N7JaJbTpot9Ln4/QZF1qwXAxIflKO', 'User', 'User1', 2, 2, 2, CURDATE());
+('user@example.com', 'password123', 'Smith', 'Alice', 2, 2, 2, CURDATE());
 
 -- Insertion des départements
 INSERT INTO departements (intitule, responsable_id) VALUES
@@ -108,4 +106,3 @@ INSERT INTO permissionDetails (role_id, permission_id, hasPermission) VALUES
 (4, 7, TRUE),
 (4, 8, TRUE),
 (4, 9, TRUE);
-

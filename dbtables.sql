@@ -54,7 +54,8 @@ CREATE TABLE `roles`(
 );
 CREATE TABLE `permissions`(
     `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `nom` VARCHAR(255) NOT NULL
+    `nom` VARCHAR(255) NOT NULL,
+    `date_creation` DATE NOT NULL
 );
 CREATE TABLE `Services`(
     `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -97,3 +98,4 @@ ALTER TABLE
     `courriers` ADD CONSTRAINT `courriers_expediteur_foreign` FOREIGN KEY(`expediteur`) REFERENCES `etablissements`(`id`);
 ALTER TABLE
     `users` ADD CONSTRAINT `users_etablissement_id_foreign` FOREIGN KEY(`etablissement_id`) REFERENCES `etablissements`(`id`);
+    
