@@ -2,19 +2,19 @@
 
 import React, { useState, ChangeEvent } from "react";
 import InputField from "../ui/InputField";
-import InputCheckbox from "../ui/InputCheckbox";
-import InputRadio from "../ui/InputRadio";
+import Select from "../ui/Select";
+import { USER } from "@/types/users";
+import Alert from "../Alerts/Alert";
 
 interface CourriersFormProps {
   typeCourriers: string;
+  users: USER[];
 }
 
-interface User {
-  id: string;
-  name: string;
-}
-
-const CourriersDepartsForm = ({ typeCourriers }: CourriersFormProps) => {
+const CourriersDepartsForm: React.FC<CourriersFormProps> = ({
+  typeCourriers,
+  users,
+}) => {
   const [formData, setFormData] = useState({
     dateCreation: "",
     signePar: "",
@@ -22,18 +22,12 @@ const CourriersDepartsForm = ({ typeCourriers }: CourriersFormProps) => {
     destinataire: "",
     objet: "",
     files: null as FileList | null,
-    confidential: false,
-    urgent: false,
-    supportType: "",
   });
 
-  const users: User[] = [
-    { id: "1", name: "Jean Dupont" },
-    { id: "2", name: "Marie Martin" },
-    { id: "3", name: "Pierre Bernard" },
-    { id: "4", name: "Sophie Laurent" },
-    { id: "5", name: "Lucas Dubois" },
-  ];
+  const [alert, setAlert] = useState<{
+    type: "success" | "error";
+    message: string;
+  } | null>(null);
 
   const handleChange = (field: string, value: any) => {
     setFormData((prev) => ({
@@ -46,62 +40,51 @@ const CourriersDepartsForm = ({ typeCourriers }: CourriersFormProps) => {
     handleChange("files", event.target.files);
   };
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    const submissionData = {
-      ...formData,
-      files: formData.files
-        ? Array.from(formData.files).map((file) => ({
-            name: file.name,
-            size: file.size,
-            type: file.type,
-          }))
-        : [],
-      dateSubmission: new Date().toISOString(),
-    };
+    const formDataToSend = new FormData();
+    formDataToSend.append("date_creation", formData.dateCreation);
+    formDataToSend.append("expediteur", formData.signePar);
+    formDataToSend.append("traite_par", formData.traitePar);
+    formDataToSend.append("destination", formData.destinataire);
+    formDataToSend.append("objet", formData.objet);
 
-    console.group("Soumission du formulaire de courrier départ");
-    console.log("Date de création:", submissionData.dateCreation);
-    console.log("Signé par:", submissionData.signePar);
-    console.log("Traité par:", submissionData.traitePar);
-    console.log("Destinataire:", submissionData.destinataire);
-    console.log("Objet:", submissionData.objet);
-    console.log("Fichiers:", submissionData.files);
-    console.log("Date de soumission:", submissionData.dateSubmission);
-    console.groupEnd();
+    if (formData.files) {
+      Array.from(formData.files).forEach((file) => {
+        formDataToSend.append("fichier", file);
+      });
+    }
+
+    try {
+      const response = await fetch("/api/courriers", {
+        method: "POST",
+        body: formDataToSend,
+      });
+
+      const data = await response.json();
+      
+      if (response.ok) {
+        setAlert({ type: "success", message: "Formulaire soumis avec succès" });
+
+        setFormData({
+          dateCreation: "",
+          signePar: "",
+          traitePar: "",
+          destinataire: "",
+          objet: "",
+          files: null,
+        });
+      } else {
+        setAlert({ type: "error", message: data.message || "Erreur lors de la soumission" });
+      }
+    } catch (error) {
+      setAlert({
+        type: "error",
+        message: "Erreur lors de l'envoi du formulaire",
+      });
+    }
   };
-
-  const SelectUser = ({ 
-    label, 
-    value, 
-    field 
-  }: { 
-    label: string; 
-    value: string; 
-    field: string;
-  }) => (
-    <div>
-      <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-        {label}
-      </label>
-      <select
-        value={value}
-        onChange={(e) => handleChange(field, e.target.value)}
-        className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white"
-        required
-      >
-        <option value="" hidden>
-          Sélectionnez un utilisateur
-        </option>
-        {users.map((user) => (
-          <option key={user.id} value={user.name}>
-            {user.name}
-          </option>
-        ))}
-      </select>
-    </div>
-  );
 
   return (
     <form
@@ -115,24 +98,44 @@ const CourriersDepartsForm = ({ typeCourriers }: CourriersFormProps) => {
       </div>
 
       <div className="flex flex-col gap-5.5 p-6.5">
-        <SelectUser
-          label="Signé par"
-          value={formData.signePar}
-          field="signePar"
-        />
-
-        <SelectUser
-          label="Traité par"
-          value={formData.traitePar}
-          field="traitePar"
-        />
+        {alert && <Alert type={alert.type} message={alert.message} />}
 
         <InputField
-          label="Date"
+          label="Date de création"
           type="date"
           placeholder="Entrez la date de création"
           value={formData.dateCreation}
           onChange={(e) => handleChange("dateCreation", e.target.value)}
+        />
+
+        <Select
+          label="Signé par"
+          value={formData.signePar}
+          onChange={(value) => handleChange("signePar", value)}
+          options={users.map((user) => ({
+            value: user.id.toString(),
+            label: user.nom,
+          }))}
+        />
+
+        <Select
+          label="Traité par"
+          value={formData.traitePar}
+          onChange={(value) => handleChange("traitePar", value)}
+          options={users.map((user) => ({
+            value: user.id.toString(),
+            label: user.nom,
+          }))}
+        />
+
+        <Select
+          label="Destinataire"
+          value={formData.destinataire}
+          onChange={(value) => handleChange("destinataire", value)}
+          options={users.map((user) => ({
+            value: user.id.toString(),
+            label: user.nom,
+          }))}
         />
 
         <InputField
@@ -141,12 +144,6 @@ const CourriersDepartsForm = ({ typeCourriers }: CourriersFormProps) => {
           placeholder="Entrez l'objet"
           value={formData.objet}
           onChange={(e) => handleChange("objet", e.target.value)}
-        />
-
-        <SelectUser
-          label="Destinataire"
-          value={formData.destinataire}
-          field="destinataire"
         />
 
         <div>
@@ -163,7 +160,7 @@ const CourriersDepartsForm = ({ typeCourriers }: CourriersFormProps) => {
 
         <button
           type="submit"
-          className="inline-flex items-center justify-center rounded-md bg-primary px-10 py-4 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10"
+          className="bg-primary px-10 py-4 text-white hover:bg-opacity-90"
         >
           Soumettre
         </button>
