@@ -1,12 +1,15 @@
 "use client";
-
 import { ApexOptions } from "apexcharts";
-import React from "react";
+import React, { useState, useMemo } from "react";
 import dynamic from "next/dynamic";
 
 const ReactApexChart = dynamic(() => import("react-apexcharts"), {
   ssr: false,
 });
+
+interface GraphiqueEvolutionCourriersProps {
+  data: { [year: string]: { entrants: number[]; sortants: number[] } };
+}
 
 const options: ApexOptions = {
   legend: {
@@ -72,31 +75,56 @@ const options: ApexOptions = {
   yaxis: {
     title: { text: "Nombre de courriers" },
     min: 0,
-    max: 200,
+    max: 300, // This will be dynamically updated
   },
 };
 
-const ChartOne: React.FC = () => {
-  // Données statiques pour les courriers entrants et sortants (remplacer plus tard par API)
+const GraphiqueEvolutionCourriers: React.FC<GraphiqueEvolutionCourriersProps> = ({ data }) => {
+  const [selectedYear, setSelectedYear] = useState<string>(Object.keys(data)[0]);
+
+  const handleYearChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedYear(event.target.value);
+  };
+
   const series = [
-    {
-      name: "Courriers Entrants",
-      data: [120, 90, 150, 130, 170, 110, 140, 160, 125, 135, 145, 155],
-    },
-    {
-      name: "Courriers Sortants",
-      data: [80, 60, 100, 95, 110, 75, 95, 105, 90, 100, 110, 120],
-    },
+    { name: "Courriers Entrants", data: data[selectedYear].entrants },
+    { name: "Courriers Sortants", data: data[selectedYear].sortants },
   ];
+
+  // Calcul dynamique du maximum
+  const maxCourrierValue = useMemo(() => {
+    const allData = [...data[selectedYear].entrants, ...data[selectedYear].sortants];
+    const maxValue = Math.max(...allData);
+    return maxValue + 5; // Ajouter 5 au max
+  }, [data, selectedYear]);
+
+  // Mise à jour des options pour yaxis avec max dynamique
+  const updatedOptions = {
+    ...options,
+    yaxis: {
+      ...options.yaxis,
+      max: maxCourrierValue,
+    },
+  };
 
   return (
     <div className="col-span-12 rounded-sm border border-stroke bg-white px-5 pb-5 pt-7.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:col-span-8">
-      <h3 className="text-lg font-semibold text-gray-800">
-        Évolution des Courriers
-      </h3>
+      <div className="flex items-center justify-between">
+        <h3 className="text-lg font-semibold text-gray-800">Évolution des Courriers</h3>
+        <div className="mb-4">
+          <select className="form-select" value={selectedYear} onChange={handleYearChange}>
+            {Object.keys(data).map((year) => (
+              <option key={year} value={year}>
+                {year}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
+
       <div id="chartOne" className="-ml-5">
         <ReactApexChart
-          options={options}
+          options={updatedOptions}
           series={series}
           type="area"
           height={350}
@@ -107,4 +135,4 @@ const ChartOne: React.FC = () => {
   );
 };
 
-export default ChartOne;
+export default GraphiqueEvolutionCourriers;

@@ -5,22 +5,30 @@ import InputField from "../ui/InputField";
 import Select from "../ui/Select";
 import { USER } from "@/types/users";
 import Alert from "../Alerts/Alert";
+import { ETABLISSEMENT } from "@/types/etablissement";
+import { ETAT } from "@/types/etat";
 
 interface CourriersFormProps {
   typeCourriers: string;
   users: USER[];
+  etablissements: ETABLISSEMENT[];
+  etats: ETAT[];
 }
 
 const CourriersDepartsForm: React.FC<CourriersFormProps> = ({
   typeCourriers,
   users,
+  etablissements,
+  etats,
 }) => {
   const [formData, setFormData] = useState({
     dateCreation: "",
     signePar: "",
     traitePar: "",
+    etat: "",
     destinataire: "",
     objet: "",
+    courrierType: "Départ",
     files: null as FileList | null,
   });
 
@@ -47,8 +55,10 @@ const CourriersDepartsForm: React.FC<CourriersFormProps> = ({
     formDataToSend.append("date_creation", formData.dateCreation);
     formDataToSend.append("expediteur", formData.signePar);
     formDataToSend.append("traite_par", formData.traitePar);
+    formDataToSend.append("etat_id", formData.etat);
     formDataToSend.append("destination", formData.destinataire);
     formDataToSend.append("objet", formData.objet);
+    formDataToSend.append("type", formData.courrierType);
 
     if (formData.files) {
       Array.from(formData.files).forEach((file) => {
@@ -63,7 +73,7 @@ const CourriersDepartsForm: React.FC<CourriersFormProps> = ({
       });
 
       const data = await response.json();
-      
+
       if (response.ok) {
         setAlert({ type: "success", message: "Formulaire soumis avec succès" });
 
@@ -71,12 +81,17 @@ const CourriersDepartsForm: React.FC<CourriersFormProps> = ({
           dateCreation: "",
           signePar: "",
           traitePar: "",
+          etat: "",
           destinataire: "",
+          courrierType: "Départ",
           objet: "",
           files: null,
         });
       } else {
-        setAlert({ type: "error", message: data.message || "Erreur lors de la soumission" });
+        setAlert({
+          type: "error",
+          message: data.message || "Erreur lors de la soumission",
+        });
       }
     } catch (error) {
       setAlert({
@@ -129,12 +144,22 @@ const CourriersDepartsForm: React.FC<CourriersFormProps> = ({
         />
 
         <Select
+          label="Etat"
+          value={formData.etat}
+          onChange={(value) => handleChange("etat", value)}
+          options={etats.map((etat) => ({
+            value: etat.id.toString(),
+            label: etat.etat,
+          }))}
+        />
+
+        <Select
           label="Destinataire"
           value={formData.destinataire}
           onChange={(value) => handleChange("destinataire", value)}
-          options={users.map((user) => ({
-            value: user.id.toString(),
-            label: user.nom,
+          options={etablissements.map((etab) => ({
+            value: etab.id.toString(),
+            label: etab.intitule,
           }))}
         />
 

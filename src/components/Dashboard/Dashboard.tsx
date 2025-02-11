@@ -1,73 +1,45 @@
-"use client";
-
-import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import ChartTwo from "../Charts/ChartTwo";
-import ChartOne from "../Charts/ChartOne";
-import ChartThree from "../Charts/ChartThree";
+import GraphiqueEvolutionCourriers from "../Charts/GraphiqueEvolutionCourriers";
+import GraphiqueRepartitionCourriers from "../Charts/GraphiqueRepartitionCourriers";
+import { getUserCount } from "../../../lib/queries/users";
+import { getEtablissementCount } from "../../../lib/queries/etablissements";
+import { getCourriersCountByType } from "../../../lib/queries/courriers";
+import { getCourriersDataByYearMonth } from "../../../lib/queries/courriers";
 
-interface Stat {
-  title: string;
-  total: string;
-  icon: string;
-}
+const Dashboard = async () => {
+  const totalUsers = await getUserCount();
+  const totalEtablissements = await getEtablissementCount();
+  const courriersCount = await getCourriersCountByType();
+  const courriersData = await getCourriersDataByYearMonth(); 
 
-const stats: Stat[] = [
-  {
-    title: "Courriers Entrants",
-    total: "120",
-    icon: "/images/icons/email-download-svgrepo-com.svg",
-  },
-  {
-    title: "Courriers Sortants",
-    total: "85",
-    icon: "/images/icons/email-upload-svgrepo-com.svg",
-  }
-];
-
-const Dashboard: React.FC = () => {
-  const [userCount, setUserCount] = useState<string>("0");
-  const [etablissementCount, setEtablissementCount] = useState<string>("0");
-
-  useEffect(() => {
-    const fetchCounts = async () => {
-      try {
-        const response = await fetch("/api/dashboard");
-        const data = await response.json();
-        
-        if (data.totalUsers) {
-          setUserCount(data.totalUsers); 
-        }
-
-        if (data.totalEtablissements) {
-          setEtablissementCount(data.totalEtablissements); 
-        }
-      } catch (error) {
-        console.error("Erreur lors de la récupération des données", error);
-      }
-    };
-
-    fetchCounts();
-  }, []);
-
-  const updatedStats = [
-    ...stats,
+  const stats = [
+    {
+      title: "Courriers Entrants",
+      total: courriersCount["Arrivé"] || 0,
+      icon: "/images/icons/email-download-svgrepo-com.svg",
+    },
+    {
+      title: "Courriers Sortants",
+      total: courriersCount["Départ"] || 0,
+      icon: "/images/icons/email-upload-svgrepo-com.svg",
+    },
     {
       title: "Utilisateurs",
-      total: userCount, 
+      total: totalUsers || 0,
       icon: "/images/icons/users-svgrepo-com.svg",
     },
     {
       title: "Établissements",
-      total: etablissementCount, // Nombre d'établissements dynamique
+      total: totalEtablissements || 0,
       icon: "/images/icons/building-flag-svgrepo-com.svg",
     },
   ];
 
   return (
     <>
+      {/* Section des statistiques */}
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
-        {updatedStats.map((stat, index) => (
+        {stats.map((stat, index) => (
           <div
             key={index}
             className="flex items-center space-x-4 rounded-lg bg-white p-6 shadow"
@@ -80,9 +52,17 @@ const Dashboard: React.FC = () => {
           </div>
         ))}
       </div>
+
+      {/* Section des graphiques */}
       <div className="mt-6 grid grid-cols-12 gap-6">
-        <ChartOne />
-        <ChartThree />
+        {/* Graphique d'évolution des courriers */}
+        <GraphiqueEvolutionCourriers data={courriersData} />
+        
+        {/* Graphique de répartition des courriers */}
+        <GraphiqueRepartitionCourriers
+          courriersEntrants={courriersCount["Arrivé"] || 0}
+          courriersSortants={courriersCount["Départ"] || 0}
+        />
       </div>
     </>
   );
