@@ -2,36 +2,33 @@
 
 import React, { useState, ChangeEvent } from "react";
 import InputField from "../ui/InputField";
-import InputCheckbox from "../ui/InputCheckbox";
 import InputRadio from "../ui/InputRadio";
+import Select from "../ui/Select";
+import { USER } from "@/types/users";
+import Alert from "../Alerts/Alert";
 
 interface CourriersFormProps {
   typeCourriers: string;
+  expediteurs: USER[];
 }
 
-interface Expediteur {
-  id: string;
-  name: string;
-}
-
-const CourriersArrivesForm = ({ typeCourriers }: CourriersFormProps) => {
+const CourriersArrivesForm = ({
+  typeCourriers,
+  expediteurs,
+}: CourriersFormProps) => {
   const [formData, setFormData] = useState({
     dateCreation: "",
     expediteur: "",
     objet: "",
     files: null as FileList | null,
-    confidential: false,
-    urgent: false,
+    mailType: "",
     supportType: "",
   });
 
-  const expediteurs: Expediteur[] = [
-    { id: "1", name: "Jean Dupont" },
-    { id: "2", name: "Marie Martin" },
-    { id: "3", name: "Pierre Bernard" },
-    { id: "4", name: "Sophie Laurent" },
-    { id: "5", name: "Lucas Dubois" },
-  ];
+  const [alert, setAlert] = useState<{
+    type: "success" | "error";
+    message: string;
+  } | null>(null);
 
   const handleChange = (field: string, value: any) => {
     setFormData((prev) => ({
@@ -44,31 +41,48 @@ const CourriersArrivesForm = ({ typeCourriers }: CourriersFormProps) => {
     handleChange("files", event.target.files);
   };
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    const submissionData = {
-      ...formData,
-      files: formData.files
-        ? Array.from(formData.files).map((file) => ({
-            name: file.name,
-            size: file.size,
-            type: file.type,
-          }))
-        : [],
-      dateSubmission: new Date().toISOString(),
-    };
+    const formDataToSend = new FormData();
+    formDataToSend.append("date_creation", formData.dateCreation);
+    formDataToSend.append("expediteur", formData.expediteur);
+    formDataToSend.append("objet", formData.objet);
+    formDataToSend.append("type_courrier", formData.mailType);
+    formDataToSend.append("type_support", formData.supportType);
 
-    console.group("Soumission du formulaire de courrier");
-    console.log("Date de création:", submissionData.dateCreation);
-    console.log("Expéditeur:", submissionData.expediteur);
-    console.log("Objet:", submissionData.objet);
-    console.log("Confidentiel:", submissionData.confidential);
-    console.log("Urgent:", submissionData.urgent);
-    console.log("Type de support:", submissionData.supportType);
-    console.log("Fichiers:", submissionData.files);
-    console.log("Date de soumission:", submissionData.dateSubmission);
-    console.groupEnd();
+    if (formData.files) {
+      Array.from(formData.files).forEach((file) => {
+        formDataToSend.append("fichier", file);
+      });
+    }
+
+    try {
+      const response = await fetch("/api/courriers", {
+        method: "POST",
+        body: formDataToSend,
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        setAlert({ type: "success", message: "Formulaire soumis avec succès" });
+        setFormData({
+          dateCreation: "",
+          expediteur: "",
+          objet: "",
+          files: null,
+          mailType: "",
+          supportType: "",
+        });
+      } else {
+        setAlert({ type: "error", message: "Erreur lors de la soumission" });
+      }
+    } catch (error) {
+      setAlert({
+        type: "error",
+        message: "Erreur lors de l'envoi du formulaire",
+      });
+    }
   };
 
   return (
@@ -81,7 +95,10 @@ const CourriersArrivesForm = ({ typeCourriers }: CourriersFormProps) => {
           {typeCourriers}
         </h3>
       </div>
+
       <div className="flex flex-col gap-5.5 p-6.5">
+        {alert && <Alert type={alert.type} message={alert.message} />}
+
         <InputField
           label="Date de création"
           type="date"
@@ -90,26 +107,15 @@ const CourriersArrivesForm = ({ typeCourriers }: CourriersFormProps) => {
           onChange={(e) => handleChange("dateCreation", e.target.value)}
         />
 
-        <div>
-          <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-            Expéditeur
-          </label>
-          <select
-            value={formData.expediteur}
-            onChange={(e) => handleChange("expediteur", e.target.value)}
-            className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white"
-            required
-          >
-            <option value="" hidden>
-              Sélectionnez un expéditeur
-            </option>
-            {expediteurs.map((exp) => (
-              <option key={exp.id} value={exp.name}>
-                {exp.name}
-              </option>
-            ))}
-          </select>
-        </div>
+        <Select
+          label="Expéditeur"
+          value={formData.expediteur}
+          onChange={(value) => handleChange("expediteur", value)}
+          options={expediteurs.map((expediteur) => ({
+            value: expediteur.id.toString(),
+            label: expediteur.nom,
+          }))}
+        />
 
         <InputField
           label="Objet"
@@ -122,18 +128,22 @@ const CourriersArrivesForm = ({ typeCourriers }: CourriersFormProps) => {
         <div className="grid grid-cols-1 gap-5.5 md:grid-cols-2">
           <div>
             <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-              Type de courriers
+              Type de courrier
             </label>
             <div className="space-y-2">
-              <InputCheckbox
+              <InputRadio
                 label="Confidentiel"
-                checked={formData.confidential}
-                onChange={(checked) => handleChange("confidential", checked)}
+                value="confidentiel"
+                name="mailType"
+                checked={formData.mailType === "confidentiel"}
+                onChange={(value) => handleChange("mailType", value)}
               />
-              <InputCheckbox
+              <InputRadio
                 label="Urgent"
-                checked={formData.urgent}
-                onChange={(checked) => handleChange("urgent", checked)}
+                value="urgent"
+                name="mailType"
+                checked={formData.mailType === "urgent"}
+                onChange={(value) => handleChange("mailType", value)}
               />
             </div>
           </div>
@@ -175,7 +185,7 @@ const CourriersArrivesForm = ({ typeCourriers }: CourriersFormProps) => {
 
         <button
           type="submit"
-          className="inline-flex items-center justify-center rounded-md bg-primary px-10 py-4 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10"
+          className="bg-primary px-10 py-4 text-white hover:bg-opacity-90"
         >
           Soumettre
         </button>
@@ -185,4 +195,3 @@ const CourriersArrivesForm = ({ typeCourriers }: CourriersFormProps) => {
 };
 
 export default CourriersArrivesForm;
-
