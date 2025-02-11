@@ -1,3 +1,4 @@
+import { RowDataPacket } from 'mysql2';
 import pool from '../db';
 
 export const fetchEtablissements = async () => {
@@ -17,4 +18,11 @@ export const addEtablissement = async (intitule: string, adresse: string, ville:
     [intitule, adresse, ville, fax, telephone]
   );
   return users;
+};
+
+export const getEtablissementCount = async () => {
+  const [result] = await pool.query<RowDataPacket[]>(
+    "SELECT COUNT(*) AS etablissementCount FROM etablissements",
+  );
+  return result[0].etablissementCount;
 };
