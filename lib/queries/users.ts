@@ -1,5 +1,5 @@
-import pool from '../db';
-
+import { RowDataPacket } from "mysql2";
+import pool from "../db";
 
 export const fetchUsers = async () => {
   const [users] = await pool.query(`
@@ -21,17 +21,29 @@ WHERE users.archived = FALSE;
 };
 
 export const fetchUsersById = async (id: number) => {
-  const [users] = await pool.query('SELECT * FROM users where id=?', [id]);
+  const [users] = await pool.query("SELECT * FROM users where id=?", [id]);
   return users;
 };
 
-export const addUser = async (prenom: string, nom: string, email: string, password: string, idEtablissement: number, idService: number, idRole: number) => {
+export const addUser = async (
+  prenom: string,
+  nom: string,
+  email: string,
+  password: string,
+  idEtablissement: number,
+  idService: number,
+  idRole: number,
+) => {
   const [users] = await pool.query(
     "INSERT INTO users (prenom, nom, email, password, id_etablissement, id_service, id_role, date_creation) VALUES (?,?, ?, ?, ?, ?, ?, NOW())",
-    [prenom, nom, email, password, idEtablissement, idService, idRole]
+    [prenom, nom, email, password, idEtablissement, idService, idRole],
   );
   return users;
 };
 
-
-
+export const getUserCount = async () => {
+  const [result] = await pool.query<RowDataPacket[]>(
+    "SELECT COUNT(*) AS userCount FROM users",
+  );
+  return result[0].userCount;
+};

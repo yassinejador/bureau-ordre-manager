@@ -4,25 +4,30 @@ import React, { useState, ChangeEvent } from "react";
 import InputField from "../ui/InputField";
 import InputRadio from "../ui/InputRadio";
 import Select from "../ui/Select";
-import { USER } from "@/types/users";
 import Alert from "../Alerts/Alert";
+import { ETABLISSEMENT } from "@/types/etablissement";
+import { ETAT } from "@/types/etat";
 
 interface CourriersFormProps {
   typeCourriers: string;
-  expediteurs: USER[];
+  expediteurs: ETABLISSEMENT[];
+  etats: ETAT[];
 }
 
 const CourriersArrivesForm = ({
   typeCourriers,
   expediteurs,
+  etats,
 }: CourriersFormProps) => {
   const [formData, setFormData] = useState({
     dateCreation: "",
     expediteur: "",
+    etat: "",
     objet: "",
     files: null as FileList | null,
     mailType: "",
     supportType: "",
+    courrierType: "Arrivé",
   });
 
   const [alert, setAlert] = useState<{
@@ -47,9 +52,11 @@ const CourriersArrivesForm = ({
     const formDataToSend = new FormData();
     formDataToSend.append("date_creation", formData.dateCreation);
     formDataToSend.append("expediteur", formData.expediteur);
+    formDataToSend.append("etat_id", formData.etat);
     formDataToSend.append("objet", formData.objet);
     formDataToSend.append("type_courrier", formData.mailType);
     formDataToSend.append("type_support", formData.supportType);
+    formDataToSend.append("type", formData.courrierType);
 
     if (formData.files) {
       Array.from(formData.files).forEach((file) => {
@@ -69,10 +76,12 @@ const CourriersArrivesForm = ({
         setFormData({
           dateCreation: "",
           expediteur: "",
+          etat: "",
           objet: "",
           files: null,
           mailType: "",
           supportType: "",
+          courrierType: "Arrivé",
         });
       } else {
         setAlert({ type: "error", message: "Erreur lors de la soumission" });
@@ -113,7 +122,17 @@ const CourriersArrivesForm = ({
           onChange={(value) => handleChange("expediteur", value)}
           options={expediteurs.map((expediteur) => ({
             value: expediteur.id.toString(),
-            label: expediteur.nom,
+            label: expediteur.intitule,
+          }))}
+        />
+
+        <Select
+          label="Etat"
+          value={formData.etat}
+          onChange={(value) => handleChange("etat", value)}
+          options={etats.map((etat) => ({
+            value: etat.id.toString(),
+            label: etat.etat,
           }))}
         />
 

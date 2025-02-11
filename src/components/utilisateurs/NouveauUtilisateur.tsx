@@ -3,6 +3,11 @@
 import React, { useState } from "react";
 import InputField from "../ui/InputField";
 import Alert from "@/components/Alerts/Alert";
+import { ROLE } from "@/types/role";
+import { ETABLISSEMENT } from "@/types/etablissement";
+import { SERVICE } from "@/types/service";
+
+
 
 interface FormData {
   nom: string;
@@ -12,7 +17,13 @@ interface FormData {
   serviceId: string;
 }
 
-const NouveauUtilisateurForm: React.FC = () => {
+interface Props {
+  roles: ROLE[];
+  etablissements: ETABLISSEMENT[];
+  services:SERVICE[];
+}
+
+const NouveauUtilisateurForm: React.FC<Props> = ({ roles, etablissements, services }) => {
   const [formData, setFormData] = useState<FormData>({
     nom: "",
     prenom: "",
@@ -20,25 +31,8 @@ const NouveauUtilisateurForm: React.FC = () => {
     etablissementId: "",
     serviceId: "",
   });
+
   const [alert, setAlert] = useState<{ message: string; type: "success" | "danger" | "info" } | null>(null);
-
-  const roles = [
-    { id: "1", name: "Admin" },
-    { id: "2", name: "Utilisateur" },
-    { id: "3", name: "Manager" },
-  ];
-
-  const etablissements = [
-    { id: "1", name: "Etablissement A" },
-    { id: "2", name: "Etablissement B" },
-    { id: "3", name: "Etablissement C" },
-  ];
-
-  const services = [
-    { id: "1", name: "Service 1" },
-    { id: "2", name: "Service 2" },
-    { id: "3", name: "Service 3" },
-  ];
 
   const handleChange = (field: keyof FormData, value: string) => {
     setFormData((prev) => ({
@@ -77,7 +71,7 @@ const NouveauUtilisateurForm: React.FC = () => {
       className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark"
     >
       <div className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
-        <h3 className="font-medium text-black dark:text-white">Nouveau Utilisateur</h3>
+        <h3 className="font-medium text-black dark:text-white">Nouvel Utilisateur</h3>
       </div>
       <div className="flex flex-col gap-5.5 p-6.5">
         {alert && <Alert message={alert.message} type={alert.type} />}
@@ -90,7 +84,7 @@ const NouveauUtilisateurForm: React.FC = () => {
           <select value={formData.roleId} onChange={(e) => handleChange("roleId", e.target.value)} className="w-full rounded-lg border-[1.5px] border-stroke px-5 py-3" required>
             <option value="" hidden>Sélectionnez un rôle</option>
             {roles.map((role) => (
-              <option key={role.id} value={role.id}>{role.name}</option>
+              <option key={role.id} value={role.id}>{role.role}</option>
             ))}
           </select>
         </div>
@@ -100,7 +94,7 @@ const NouveauUtilisateurForm: React.FC = () => {
           <select value={formData.etablissementId} onChange={(e) => handleChange("etablissementId", e.target.value)} className="w-full rounded-lg border-[1.5px] border-stroke px-5 py-3" required>
             <option value="" hidden>Sélectionnez un établissement</option>
             {etablissements.map((etab) => (
-              <option key={etab.id} value={etab.id}>{etab.name}</option>
+              <option key={etab.id} value={etab.id}>{etab.intitule}</option>
             ))}
           </select>
         </div>
@@ -110,7 +104,7 @@ const NouveauUtilisateurForm: React.FC = () => {
           <select value={formData.serviceId} onChange={(e) => handleChange("serviceId", e.target.value)} className="w-full rounded-lg border-[1.5px] border-stroke px-5 py-3" required>
             <option value="" hidden>Sélectionnez un service</option>
             {services.map((service) => (
-              <option key={service.id} value={service.id}>{service.name}</option>
+              <option key={service.id} value={service.id}>{service.nom}</option>
             ))}
           </select>
         </div>
