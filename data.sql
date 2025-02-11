@@ -23,8 +23,10 @@ INSERT INTO permissions (nom, date_creation) VALUES
 
 -- Insertion des établissements
 INSERT INTO etablissements (intitule, adresse, ville, fax, telephone) VALUES
-('Établissement A', '123 Rue A', 'VilleA', 123456789, 987654321),
-('Établissement B', '456 Rue B', 'VilleB', 223456789, 887654321);
+('FS', '123 Rue A', 'VilleA', 123456789, 987654321),
+('ENSA', '123 Rue A', 'VilleC', 123456789, 987654321),
+('ENS', '123 Rue A', 'VilleD', 123456789, 987654321),
+('ENCG', '456 Rue B', 'VilleB', 223456789, 887654321);
 
 -- Insertion des services
 INSERT INTO Services (nom, date_creation) VALUES
@@ -48,9 +50,9 @@ INSERT INTO etats (etat) VALUES
 ('Cloture');
 
 -- Insertion des courriers
-INSERT INTO courriers (expediteur, destination, traite_par, objet, etat_id, date_creation) VALUES
-(1, 2, 1, 'Demande de renseignements', 1, now()),
-(2, 1, 2, 'Réponse à la demande', 2, now());
+INSERT INTO courriers (expediteur, destination, traite_par, objet, etat_id, date_creation,type) VALUES
+(1, 2, 1, 'Demande de renseignements', 1, now(),'Départ'),
+(2, 1, 2, 'Réponse à la demande', 2, now(),'Arrivé');
 
 -- Insertion des fichiers
 INSERT INTO fichiers (type_courrier, type_support, fichier, courrier_id) VALUES
