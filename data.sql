@@ -33,7 +33,9 @@ INSERT INTO Services (nom, date_creation) VALUES
 -- Insertion des utilisateurs
 INSERT INTO users (email, password, nom, prenom, role_id, etablissement_id, service_id, date_creation) VALUES
 ('admin@example.com', 'password123', 'Doe', 'John', 1, 1, 1, CURDATE()),
-('user@example.com', 'password123', 'Smith', 'Alice', 2, 2, 2, CURDATE());
+('user@example.com', 'password123', 'Smith', 'Alice', 2, 2, 2, CURDATE()),
+('user.user@fs.ucd.ac.ma', '$2a$10$7C1/qUL/iMD8i.HUDzDABuuYXuxtZLI1hYnlgKlrXADRfANLpLBd6', 'User', 'User', 1, 1, 1, CURDATE()), -- password: User@User
+('user.user1@fs.ucd.ac.ma', '$2a$10$2fcilhpvj4zlBw8RsVyvW.99N7JaJbTpot9Ln4/QZF1qwXAxIflKO', 'User', 'User1', 2, 2, 2, CURDATE());
 
 -- Insertion des départements
 INSERT INTO departements (intitule, responsable_id) VALUES
