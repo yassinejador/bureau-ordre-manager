@@ -43,7 +43,8 @@ CREATE TABLE `courriers`(
     `objet` TEXT NOT NULL,
     `etat_id` INT  NULL,
     `date_creation` DATE  NULL,
-    `date_suppression` DATETIME NULL
+    `date_suppression` DATETIME NULL,
+    `type` ENUM('Départ', 'Arrivé') NOT NULL
 );
 
 CREATE TABLE `etats`(
