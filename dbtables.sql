@@ -1,3 +1,4 @@
+DROP DATABASE IF EXISTS db_bureau_ordre_manager;
 create DATABASE db_bureau_ordre_manager;
 
 use db_bureau_ordre_manager;
@@ -11,7 +12,8 @@ CREATE TABLE `users`(
     `role_id` INT NOT NULL,
     `etablissement_id` INT NOT NULL,
     `service_id` INT NOT NULL,
-    `date_creation` DATE NOT NULL
+    `date_creation` DATE NOT NULL, 
+    `archived` BOOLEAN NOT NULL DEFAULT FALSE
 );
 CREATE TABLE `departements`(
     `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -20,8 +22,8 @@ CREATE TABLE `departements`(
 );
 CREATE TABLE `fichiers`(
     `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `type_courrier` ENUM('confidential', 'urgent') NOT NULL,
-    `type_support` ENUM('papier', 'numerique') NOT NULL,
+    `type_courrier` ENUM('confidentiel', 'urgent')  NULL,
+    `type_support` ENUM('papier', 'numerique')  NULL,
     `fichier` VARCHAR(255) NOT NULL,
     `courrier_id` INT NOT NULL
 );
@@ -35,14 +37,15 @@ CREATE TABLE `etablissements`(
 );
 CREATE TABLE `courriers`(
     `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `expediteur` INT NOT NULL,
-    `destination` INT NOT NULL,
-    `traite_par` INT NOT NULL,
+    `expediteur` INT  NULL,
+    `destination` INT  NULL,
+    `traite_par` INT  NULL,
     `objet` TEXT NOT NULL,
-    `etat_id` INT NOT NULL,
-    `date_creation` DATE NOT NULL,
+    `etat_id` INT  NULL,
+    `date_creation` DATE  NULL,
     `date_suppression` DATETIME NULL
 );
+
 CREATE TABLE `etats`(
     `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `etat` ENUM('Enattente', 'Traite', 'Cloture') NOT NULL
