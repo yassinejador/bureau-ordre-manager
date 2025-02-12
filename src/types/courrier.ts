@@ -2,14 +2,15 @@ import { FICHE } from "./fiche";
 
 export type COURRIER = {
     
-    courrier_id:number,
+    id:number,
     expediteur:string,
+    type:string,
     destination:string,
     traite_par:string,
     date_creation:string,
     objet:string,
-    etat_id:string,
+    statut:string,
     date_suppression:string,
-    fichier:FICHE[],
+    fichiers:FICHE[],
     actions:string,
 }

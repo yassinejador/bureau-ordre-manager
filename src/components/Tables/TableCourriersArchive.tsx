@@ -11,33 +11,35 @@ const TableCourriersArchive: React.FC = () => {
   
     const courriers: COURRIER[] = [
       {
-        courrier_id: 1,
+        id: 1,
         date_creation: "15 dev 2025",
         expediteur: "ENCG",
         traite_par: "Ahmed",
         objet: "hh",
-        etat_id: "Départ",
+        statut: "Départ",
         destination: "Ensa",
         date_suppression: "",
         actions: "",
-        fichier:[ 
-      { id: 1, type_courrier: "PDF", type_support: "Document", fichier: "Document1.pdf", courrier_id: 1 },
-      { id: 2, type_courrier: "Image", type_support: "Image", fichier: "Image1.jpg", courrier_id: 1 }
-   ],
+        fichiers: [
+          { id: 1, type_courrier: "PDF", type_support: "Document", fichier: "Document1.pdf", courrier_id: 1 },
+          { id: 2, type_courrier: "Image", type_support: "Image", fichier: "Image1.jpg", courrier_id: 1 }
+        ],
+        type: ""
       },
       {
-          courrier_id: 2,
-          date_creation: "Jan 13 2023",
-          expediteur: "ENCG",
-          objet: "bdjd",
-          etat_id: " Arrivé",
-          destination: "Ensa",
-          date_suppression: "",
-          actions: "",
-          traite_par: "",
-          fichier: [{ id: 1, type_courrier: "PDF", type_support: "Document", fichier: "Document1.pdf", courrier_id: 1 },
-          { id: 2, type_courrier: "Image", type_support: "Image", fichier: "Image1.jpg", courrier_id: 1 }
-       ],
+        id: 2,
+        date_creation: "Jan 13 2023",
+        expediteur: "ENCG",
+        objet: "bdjd",
+        statut: " Arrivé",
+        destination: "Ensa",
+        date_suppression: "",
+        actions: "",
+        traite_par: "",
+        fichiers: [{ id: 1, type_courrier: "PDF", type_support: "Document", fichier: "Document1.pdf", courrier_id: 1 },
+        { id: 2, type_courrier: "Image", type_support: "Image", fichier: "Image1.jpg", courrier_id: 1 }
+        ],
+        type: ""
       },
     ];
 
@@ -48,9 +50,9 @@ const TableCourriersArchive: React.FC = () => {
 
         
       <div className="flex flex-col">
-        {/* Table Header */}
+        {/* Table Header */}*/
     
-        <div className="grid grid-cols-7 sm:grid-cols-7 rounded-sm bg-gray-200 dark:bg-meta-4">
+        /*<div className="grid grid-cols-7 sm:grid-cols-7 rounded-sm bg-gray-200 dark:bg-meta-4">
           
                 <div className="p-3 text-center font-medium uppercase text-black dark:text-white">ID</div>
                 <div className="p-3 text-center font-medium uppercase text-black dark:text-white">Expéditeur</div>
@@ -62,19 +64,19 @@ const TableCourriersArchive: React.FC = () => {
               </div>
             {/* Table Rows */}
               {courriers.map((courrier) => (
-                <div key={courrier.courrier_id}
+                <div key={courrier.id}
                 className={`grid grid-cols-7 sm:grid-cols-7 items-center border-b border-stroke dark:border-strokedark last:border-b-0`}
                 >
-                  <div className="p-3 text-center text-black dark:text-white">{courrier.courrier_id}</div>
+                  <div className="p-3 text-center text-black dark:text-white">{courrier.id}</div>
                   <div className="p-3 text-center text-black dark:text-white">{courrier.expediteur}</div>
                   <div className="p-3 text-center text-black dark:text-white">{courrier.destination}</div>
                   <div className="p-3 text-center text-black dark:text-white">{courrier.date_creation}</div>
-                  <div className="p-3 text-center text-black dark:text-white">{courrier.etat_id}</div>
+                  <div className="p-3 text-center text-black dark:text-white">{courrier.statut}</div>
                   
                   <div className="p-3 text-center text-black dark:text-white">
-                    {courrier.fichier.length > 0 ? (
+                    {courrier.fichiers.length > 0 ? (
                       <ul>
-                        {courrier.fichier.map((file, index) => (
+                        {courrier.fichiers.map((file, index) => (
                           <li key={index}>
                             <a href={file.fichier} className="text-blue-500 underline" target="_blank" rel="noopener noreferrer">
                               {file.fichier}

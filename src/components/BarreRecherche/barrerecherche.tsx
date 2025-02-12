@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 const RechercheForm = () => {
-  const [type, setType] = useState("Arrivées");
+  const [type, setType] = useState("Arrivé");
   const [dateCreation, setDateCreation] = useState("");
   const [establishment, setEstablishment] = useState("");
   const [object, setObject] = useState("");
@@ -12,41 +12,43 @@ const RechercheForm = () => {
 
   const handleRecherche = (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // Création des paramètres de recherche et verification si variable n'est pas vide va etre stocker dans querparams
+
+    // Création des paramètres de recherche
     const queryParams = new URLSearchParams();
     if (type) queryParams.set("type", type);
-    if (dateCreation) queryParams.set("dateCreation", dateCreation);
-    if (establishment) queryParams.set("establishment", establishment);
-    if (object) queryParams.set("object", object);
+    if (dateCreation) queryParams.set("date_creation", dateCreation);
+    if (establishment) queryParams.set("etablissement", establishment.toUpperCase());
+    if (object) queryParams.set("objet", object);
 
-    // Redirection vers la page de recherche avec les paramètres
-// Vérification de la condition
-if (type === 'Départs') {
-    // Rediriger vers la page "depart"
-    router.push(`/courriers/recherche?${queryParams.toString()}`);
-  } else {
-    // Rediriger vers une autre page
-    router.push(`/courriers/recherche/recherchearrives?${queryParams.toString()}`);
-  }  };
+    // Redirection selon le type sélectionné
+    if (type === "Arrivé") {
+      router.push(`/courriers/recherche/recherchearrives?${queryParams.toString()}`);
+    } else {
+      router.push(`/courriers/recherche/recherchedeparts?${queryParams.toString()}`);
+    }
+  };
 
   return (
-    <div className="p-4 bg-white shadow-md rounded-lg">
-      <h1 className="text-xl font-bold mb-4">Recherche des arrivées et des départs</h1>
-      <form onSubmit={handleRecherche}>
-        <div className="mb-4">
+    <div className="p-6 bg-white shadow-md rounded-lg">
+      <h1 className="text-xl font-bold mb-4 text-center">
+        Recherche des courriers
+      </h1>
+      <form onSubmit={handleRecherche} className="space-y-4">
+        {/* Type de courrier */}
+        <div>
           <label className="block text-sm font-medium text-gray-700">Type</label>
           <select
             value={type}
             onChange={(e) => setType(e.target.value)}
             className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
           >
-            <option value="Arrivées">Arrivées</option>
-            <option value="Départs">Départs</option>
+            <option value="Arrivées">Arrivé</option>
+            <option value="Départ">Départ</option>
           </select>
         </div>
 
-        <div className="mb-4">
+        {/* Date de création */}
+        <div>
           <label className="block text-sm font-medium text-gray-700">Date de création</label>
           <input
             type="date"
@@ -56,21 +58,22 @@ if (type === 'Départs') {
           />
         </div>
 
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">Établissement</label>
-          <select
+        {/* Établissement */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700">
+            Établissement <span className="text-red-500">(en MAJUSCULES)</span>
+          </label>
+          <input
+            type="text"
             value={establishment}
-            onChange={(e) => setEstablishment(e.target.value)}
-            className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
-          >
-            <option value="">Sélectionner l'expéditeur</option>
-            <option value="ENSA">ENSA</option>
-            <option value="ENCG">ENCG</option>
-            <option value="Autre">Autre</option>
-          </select>
+            onChange={(e) => setEstablishment(e.target.value.toUpperCase())}
+            placeholder="ENSA"
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md uppercase"
+          />
         </div>
 
-        <div className="mb-4">
+        {/* Objet */}
+        <div>
           <label className="block text-sm font-medium text-gray-700">Objet</label>
           <input
             type="text"
@@ -81,6 +84,7 @@ if (type === 'Départs') {
           />
         </div>
 
+        {/* Bouton Rechercher */}
         <button
           type="submit"
           className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
@@ -93,5 +97,3 @@ if (type === 'Départs') {
 };
 
 export default RechercheForm;
-
-
