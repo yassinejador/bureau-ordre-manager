@@ -30,9 +30,9 @@ const FormLayout = () => {
       setMessage(`Le role ${role} a étè ajouté avec succès !`);
       setRole("");
       setTimeout(() => {
-        setMessage(""); // Masque l'alerte après 5 secondes
-      }, 7000);
-      router.push("/roles")
+        setMessage(""); // Masque l'alerte après 7 secondes
+        router.push("/roles")
+      }, 5000);
     } else {
       setMessage(data.error || "Une erreur s'est produite.");
     }

@@ -1,5 +1,6 @@
 import { SERVICE } from "@/types/service";
 import dateformat from "../../../helpers/dateformat";
+import Link from "next/link";
 
 const TableServices = ({ services }: { services: SERVICE[] }) => {
   return (
@@ -28,7 +29,11 @@ const TableServices = ({ services }: { services: SERVICE[] }) => {
       </div>
 
       <div className="mt-4 flex justify-end">
-        <button className="px-4 py-2 bg-blue-600 text-white rounded-sm hover:bg-blue-700">Ajouter un nouveau service</button>
+        <button className="px-4 py-2 bg-blue-600 text-white rounded-sm hover:bg-blue-700">
+          <Link href="/forms/form-ajouter-service">
+            Ajouter un nouveau service
+          </Link>
+        </button>
       </div>
     </div>
   );

@@ -1,39 +1,26 @@
-import React from "react";
+"use client";
+
+import React, {useState} from "react";
 import { FaPlus } from "react-icons/fa"; 
 import Link from "next/link";
+import { ETABLISSEMENT } from "@/types/etablissement";
+import  DownloadForm  from "@/components/forms/PageListeEtablissement/DownloadForm"; 
 
-const TableEtablissement = () => {
-  const etablissements = [
-    {
-      id: 1,
-      intitule: "FS-UCD",
-      adresse: "Route Ben Maâchou, 24000, El Jadida, Maroc",
-      ville: "El Jadida", 
-      fax: "0523354675",
-      telephone: "0523354674",
-      
-    },
-    {
-      id: 1,
-      intitule: "FS-UCD",
-      adresse: "Route Ben Maâchou, 24000, El Jadida, Maroc",
-      ville: "El Jadida",
-      fax: "0523354675",
-      telephone: "0523354674",
-      
-      
-    },
-    {
-      id: 1,
-      intitule: "FS-UCD",
-      adresse: "Route Ben Maâchou, 24000, El Jadida, Maroc",
-      ville: "El Jadida",
-      fax: "0523354675",
-      telephone: "0523354674",
-      
-    },
-    
-  ];
+
+type TableEtablissementsProps = {
+  etablissements: ETABLISSEMENT[];
+  setEtablissements?: (etablissements: ETABLISSEMENT[] | ((prevEtablissements: ETABLISSEMENT[]) => ETABLISSEMENT[])) => void; // Définir setUsers comme prop
+};
+
+const TableEtablissement = ({etablissements} : {etablissements: ETABLISSEMENT[]}) => {
+  const [selectedEtablissement, setSelectedEtablissement] = useState<ETABLISSEMENT | null>(null);
+
+  const [editingEtablissement, setEditingEtablissement] = useState<ETABLISSEMENT | null>(null);
+
+  const handleEdit = (etablissement: ETABLISSEMENT) => {
+    console.log("🔍 Utilisateur sélectionné pour modification:", etablissement);
+    setEditingEtablissement(etablissement);
+  };
 
   return (
     <div className="bg-gray-100 min-h-screen p-4">
@@ -74,7 +61,7 @@ const TableEtablissement = () => {
       <div className="p-3 text-center text-black dark:text-white">{etablissement.fax}</div>
       <div className="p-3 text-center text-black dark:text-white">{etablissement.adresse}</div>
       <div className="p-3 text-center text-black dark:text-white">
-                  <button className="hover:text-primary">
+      <button onClick={() => setEditingEtablissement(etablissement)} className="hover:text-primary">
                       <svg
                         className="fill-current"
                         width="18"
@@ -82,17 +69,15 @@ const TableEtablissement = () => {
                         viewBox="0 0 18 18"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M8.99981 14.8219C3.43106 14.8219 0.674805 9.50624 0.562305 9.28124C0.47793 9.11249 0.47793 8.88749 0.562305 8.71874C0.674805 8.49374 3.43106 3.20624 8.99981 3.20624C14.5686 3.20624 17.3248 8.49374 17.4373 8.71874C17.5217 8.88749 17.5217 9.11249 17.4373 9.28124C17.3248 9.50624 14.5686 14.8219 8.99981 14.8219ZM1.85605 8.99999C2.4748 10.0406 4.89356 13.5562 8.99981 13.5562C13.1061 13.5562 15.5248 10.0406 16.1436 8.99999C15.5248 7.95936 13.1061 4.44374 8.99981 4.44374C4.89356 4.44374 2.4748 7.95936 1.85605 8.99999Z"
-                          fill=""
-                        />
-                        <path
-                          d="M9 11.3906C7.67812 11.3906 6.60938 10.3219 6.60938 9C6.60938 7.67813 7.67812 6.60938 9 6.60938C10.3219 6.60938 11.3906 7.67813 11.3906 9C11.3906 10.3219 10.3219 11.3906 9 11.3906ZM9 7.875C8.38125 7.875 7.875 8.38125 7.875 9C7.875 9.61875 8.38125 10.125 9 10.125C9.61875 10.125 10.125 9.61875 10.125 9C10.125 8.38125 9.61875 7.875 9 7.875Z"
-                          fill=""
-                        />
-                      </svg>
-                    </button>
+                       >
+                    <path
+                        d="M13.75 7.3025L10.6975 4.25L11.7575 3.19C12.02 2.9275 12.38 2.7775 12.7575 2.7775C13.135 2.7775 13.495 2.9275 13.7575 3.19L14.81 4.2425C15.0725 4.505 15.2225 4.865 15.2225 5.2425C15.2225 5.62 15.0725 5.98 14.81 6.2425L13.75 7.3025ZM2.5 15.5V12.4475C2.5 12.26 2.56 12.0775 2.6725 11.93L9.3725 5.23L12.425 8.2825L5.725 14.9825C5.5775 15.13 5.395 15.19 5.2075 15.19H2.155C2.07 15.19 2 15.26 2 15.345V15.5H2.5Z"
+                        fill="" 
+                        stroke="#808080" 
+                        strokeWidth="0.5" 
+                       />
+                       </svg>
+              </button>
                     <button className="hover:text-primary">
                       <svg
                         className="fill-current"
@@ -120,7 +105,7 @@ const TableEtablissement = () => {
                         />
                       </svg>
                     </button>
-                    <button className="hover:text-primary">
+                    <button onClick={() => setSelectedEtablissement(etablissement)}  className="hover:text-primary">
                       <svg
                         className="fill-current"
                         width="18"
@@ -144,6 +129,10 @@ const TableEtablissement = () => {
                   
               ))}
             
+
+            {selectedEtablissement && (
+        <DownloadForm etablissement={selectedEtablissement} onClose={() => setSelectedEtablissement(null)} />
+      )}      
          </div>
       </div>
  </div>
