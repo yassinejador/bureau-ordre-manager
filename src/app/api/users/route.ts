@@ -1,5 +1,9 @@
 import { NextResponse } from 'next/server';
-import { addUser, fetchUsers, fetchUsersById  } from '../../../../lib/queries/users';
+import {  fetchUsers, fetchUsersById  } from '../../../../lib/queries/users';
+import { addLog } from "../../../../lib/queries/logs";
+import { verifyToken } from "../../../../lib/auth";
+
+
 
 export async function GET(req: Request) {
   try {
@@ -22,23 +26,6 @@ export async function GET(req: Request) {
   } catch (error) {
     console.error('Error fetching users:', error);
     return NextResponse.json({ error: 'Failed to fetch users' }, { status: 500 });
-  }
-}
-
-export async function POST(req: Request) {
-  try {
-    const { prenom, nom, email, password, id_etablissement, id_service, id_role } = await req.json();
-
-    if (!prenom || !nom || !email || !password || !id_etablissement || !id_service || !id_role) {
-      return NextResponse.json({ error: "Tout les champs sont requis." }, { status: 400 });
-    }
-
-    await addUser(prenom, nom, email, password, id_etablissement, id_service, id_role );
-
-    return NextResponse.json({ message: "Utilisateur ajouté" }, { status: 201 });
-  } catch (error) {
-    console.error("Database error:", error);
-    return NextResponse.json({ error: "Erreur de base de données" }, { status: 500 });
   }
 }
 

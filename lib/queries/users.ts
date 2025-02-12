@@ -1,5 +1,6 @@
-import { RowDataPacket } from "mysql2";
-import pool from "../db";
+import { RowDataPacket } from 'mysql2';
+import pool from '../db';
+
 
 export const fetchUsers = async () => {
   const [users] = await pool.query(`
@@ -25,18 +26,10 @@ export const fetchUsersById = async (id: number) => {
   return users;
 };
 
-export const addUser = async (
-  prenom: string,
-  nom: string,
-  email: string,
-  password: string,
-  idEtablissement: number,
-  idService: number,
-  idRole: number,
-) => {
+export const addUser = async (prenom: string, nom: string, email: string, password: string, idEtablissement: number, idService: number, idRole: number) => {
   const [users] = await pool.query(
     "INSERT INTO users (prenom, nom, email, password, id_etablissement, id_service, id_role, date_creation) VALUES (?,?, ?, ?, ?, ?, ?, NOW())",
-    [prenom, nom, email, password, idEtablissement, idService, idRole],
+    [prenom, nom, email, password, idEtablissement, idService, idRole]
   );
   return users;
 };

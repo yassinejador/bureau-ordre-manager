@@ -1,71 +1,78 @@
 "use client";
-import { LOG } from "@/types/historique";
-import React, { useState, useEffect } from "react";
 
-const LogsHistory: React.FC = () => {
+import { LOG } from '@/types/historique';
+import React, { useEffect, useState } from 'react';
+
+const Historique: React.FC = () => {
   const [logs, setLogs] = useState<LOG[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Logs initiaux
-    const initialLogs: LOG[] = [
-      { id: 1, user: "Mr.A", description: "Création d'un utilisateur", dateAction: "2024-02-01 10:00:00", userId: 1 },
-      { id: 2, user: "Mr.B", description: "Modification d'un rôle", dateAction: "2024-02-01 11:30:00", userId: 2 },
-      { id: 3, user: "Miss.A", description: "Suppression d'un document", dateAction: "2024-02-01 14:45:00", userId: 3 },
-    ];
-    setLogs(initialLogs);
+    const fetchLogs = async () => {
+      try {
+        const response = await fetch('/api/logs');
+        
+        if (!response.ok) {
+          throw new Error("Erreur lors du chargement des logs");
+        }
+
+        const data = await response.json();
+        if (!Array.isArray(data.logs)) {
+          throw new Error("Format des logs invalide");
+        }
+
+        setLogs(data.logs);
+      } catch (err) {
+        console.error("Erreur lors de la récupération des logs:", err);
+        setError("Impossible de charger l'historique des actions.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchLogs();
   }, []);
 
-  const handleUserAction = (newAction: LOG) => {
-    // Ajouter une nouvelle action à l'historique
-    setLogs((prevLogs) => [...prevLogs, newAction]);
-  };
+  if (loading) {
+    return <p className="text-gray-500 text-center">Chargement des logs...</p>;
+  }
+
+  if (error) {
+    return <p className="text-red-500 text-center">{error}</p>;
+  }
 
   return (
-    <div className="rounded-sm border border-stroke bg-white px-5 pb-5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5">
-      <h4 className="mb-6 text-xl font-semibold text-black dark:text-white">Historique des Actions</h4>
-
-      <div className="flex flex-col">
-        {/* Table Header */}
-        <div className="grid grid-cols-4 sm:grid-cols-4 rounded-sm bg-gray-200 dark:bg-meta-4">
-          <div className="p-3 text-center font-medium uppercase text-black dark:text-white">ID</div>
-          <div className="p-3 text-center font-medium uppercase text-black dark:text-white">Utilisateur</div>
-          <div className="p-3 text-center font-medium uppercase text-black dark:text-white">Description</div>
-          <div className="p-3 text-center font-medium uppercase text-black dark:text-white">Date</div>
-        </div>
-
-        {/* Table Rows */}
-        {logs.map((log) => (
-          <div
-            key={log.id}
-            className={`grid grid-cols-4 sm:grid-cols-4 items-center border-b border-stroke dark:border-strokedark last:border-b-0`}
-          >
-            <div className="p-3 text-center text-black dark:text-white">{log.id}</div>
-            <div className="p-3 text-center text-black dark:text-white">{log.user}</div>
-            <div className="p-3 text-center text-black dark:text-white">{log.description}</div>
-            <div className="p-3 text-center text-black dark:text-white">{log.dateAction}</div>
-          </div>
-        ))}
-      </div>
-
-      {/* Simulation d'une action utilisateur */}
-      <div className="mt-4">
-        <button
-          onClick={() =>
-            handleUserAction({
-              id: logs.length + 1, // Créer un nouvel ID 
-              user: "Mr.C",
-              description: "Ajout d'un nouveau document",
-              dateAction: new Date().toISOString(),
-              userId: 4,
-            })
-          }
-          className="bg-blue-500 text-white px-4 py-2 rounded"
-        >
-          Ajouter une action
-        </button>
-      </div>
+    <div className="overflow-x-auto bg-white">
+      <h1 className="text-xl font-bold mb-4">Historique des Actions</h1>
+      <table className="min-w-full border-collapse border border-gray-300">
+        <thead>
+          <tr className="bg-gray-200">
+            <th className="border border-gray-300 px-4 py-2 text-left">Utilisateur</th>
+            <th className="border border-gray-300 px-4 py-2 text-left">Description</th>
+            <th className="border border-gray-300 px-4 py-2 text-left">Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {logs.length > 0 ? (
+            logs.map((log) => (
+              <tr key={log.id} className="border border-gray-300">
+                <td className="border border-gray-300 px-4 py-2">{log.nom || "Inconnu"}</td>
+                <td className="border border-gray-300 px-4 py-2">{log.description}</td>
+                <td className="border border-gray-300 px-4 py-2">
+                  {new Date(log.date_action).toLocaleString()}
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan={3} className="text-center py-4">Aucune action enregistrée.</td>
+            </tr>
+          )}
+        </tbody>
+      </table>
     </div>
   );
 };
 
-export default LogsHistory;
+export default Historique;

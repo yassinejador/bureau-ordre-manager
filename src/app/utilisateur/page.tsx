@@ -2,7 +2,7 @@
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
-import TableUsers from "@/components/Tables/TableUsers";
+import TableUsers from "../../components/Tables/TableUsers";
 import { USER } from "@/types/users";
 
 export const metadata: Metadata = {

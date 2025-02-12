@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 import { addPermission, fetchPermissions } from '../../../../lib/queries/permissions';
+import { getAuthenticatedUser } from '../../../../lib/auth';
+import { addLog } from '../../../../lib/queries/logs';
 
 export async function GET() {
   try {
@@ -14,6 +16,14 @@ export async function GET() {
 
 export async function POST(req: Request) {
     try {
+
+      const authenticatedUser = await getAuthenticatedUser();
+      if (!authenticatedUser) {
+        throw new Error("Utilisateur non authentifié");
+      }
+  
+      console.log("🔍 ID utilisateur connecté :", authenticatedUser.id);
+      
       const { permission } = await req.json();
   
       if (!permission) {
@@ -21,6 +31,9 @@ export async function POST(req: Request) {
       }
   
       await addPermission(permission);
+
+      await addLog ( authenticatedUser.id, `Ajouter une permission `);
+
   
       return NextResponse.json({ message: "permission ajouté" }, { status: 201 });
     } catch (error) {

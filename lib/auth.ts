@@ -2,6 +2,7 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import pool from "./db";
 import { cookies } from "next/headers";
+import { USER } from "@/types/users";
 
 interface User {
   id: number;

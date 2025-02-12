@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 import { addService, fetchServices } from '../../../../lib/queries/services';
+import { addLog } from '../../../../lib/queries/logs';
+import { getAuthenticatedUser } from '../../../../lib/auth';
 
 export async function GET() {
   try {
@@ -13,6 +15,14 @@ export async function GET() {
 
 export async function POST(req: Request) {
   try {
+    const authenticatedUser = await getAuthenticatedUser();
+    if (!authenticatedUser) {
+      throw new Error("Utilisateur non authentifié");
+    }
+
+    console.log("🔍 ID utilisateur connecté :", authenticatedUser.id);
+    
+
     const { nomService } = await req.json();
 
     if (!nomService) {
@@ -20,6 +30,8 @@ export async function POST(req: Request) {
     }
 
     await addService(nomService);
+    await addLog ( authenticatedUser.id, `Ajouter un service nommé ${nomService}`);
+
 
     return NextResponse.json({ message: "Service ajouté" }, { status: 201 });
   } catch (error) {

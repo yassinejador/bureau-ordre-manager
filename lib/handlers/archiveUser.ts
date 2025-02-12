@@ -1,11 +1,27 @@
+import { getAuthenticatedUser } from '../auth';
 import pool from '../db';
+import { addLog } from '../queries/logs';
 
 // Archiver un utilisateur
 export const archiveUser = async (id: number) => {
   try {
+
+    const authenticatedUser = await getAuthenticatedUser();
+    if (!authenticatedUser) {
+      throw new Error("Utilisateur non authentifié");
+    }
+
+    console.log("🔍 ID utilisateur connecté :", authenticatedUser.id);
+    
+
     const [result] = await pool.query('UPDATE users SET archived = TRUE WHERE id = ?', [id]);
+    
+    await addLog ( authenticatedUser.id, `suprission d'utilisateur avec id : ${id}`);
+
+    
     return result;
-  } catch (error) {
+  } 
+  catch (error) {
     console.error('Error archiving user:', error);
     throw error;
   }
