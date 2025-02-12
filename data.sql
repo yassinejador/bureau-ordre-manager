@@ -9,16 +9,16 @@ INSERT INTO roles (role, date_creation) VALUES
 ('Agents administratifs', CURDATE());
 
 -- Insertion des permissions
-INSERT INTO permissions (nom, date_creation) VALUES 
-('Accéder au tableau de bord', now()),
-('Créer un nouveau courrier arriver', now()),
-('Créer un nouveau courrier depart', now()),
-('Supprimer un courrier', now()),
-('Archiver un courrier', now()),
-('Générer des rapports mensuels et annuels', now()),
-('Créer un role', now()),
-('Gérer les permissions', now()),
-('Consulter la liste des utilisateurs', now());
+INSERT INTO permissions (nom,date_creation) VALUES 
+('Accéder au tableau de bord',now()),
+('Créer un nouveau courrier arriver',now()),
+('Créer un nouveau courrier depart',now()),
+('Supprimer un courrier',now()),
+('Archiver un courrier',now()),
+('Générer des rapports mensuels et annuels',now()),
+('Créer un role',now()),
+('Gérer les permissions',now()),
+('Consulter la liste des utilisateurs',now());
 
 
 -- Insertion des établissements
@@ -35,8 +35,8 @@ INSERT INTO Services (nom, date_creation) VALUES
 
 -- Insertion des utilisateurs
 INSERT INTO users (email, password, nom, prenom, role_id, etablissement_id, service_id, date_creation) VALUES
-('user.user@fs.ucd.ac.ma', '$2a$10$7C1/qUL/iMD8i.HUDzDABuuYXuxtZLI1hYnlgKlrXADRfANLpLBd6', 'Doe', 'John', 1, 1, 1, CURDATE()),
-('user.user1@fs.ucd.ac.ma', '$2a$10$7C1/qUL/iMD8i.HUDzDABuuYXuxtZLI1hYnlgKlrXADRfANLpLBd6', 'Smith', 'Alice', 2, 2, 2, CURDATE());
+ ('user.user@fs.ucd.ac.ma', '$2a$10$7C1/qUL/iMD8i.HUDzDABuuYXuxtZLI1hYnlgKlrXADRfANLpLBd6', 'JEhom', 'ARMANE', 1, 1, 1, CURDATE()),
+('user.user1@fs.ucd.ac.ma', '$2a$10$2fcilhpvj4zlBw8RsVyvW.99N7JaJbTpot9Ln4/QZF1qwXAxIflKO', 'Ahmed', 'saferioui', 2, 2, 2, CURDATE());
 
 -- Insertion des départements
 INSERT INTO departements (intitule, responsable_id) VALUES
@@ -45,19 +45,48 @@ INSERT INTO departements (intitule, responsable_id) VALUES
 
 -- Insertion des états
 INSERT INTO etats (etat) VALUES
-('Enattente'),
+('En attente'),
 ('Traite'),
 ('Cloture');
 
 -- Insertion des courriers
-INSERT INTO courriers (expediteur, destination, traite_par, objet, etat_id, date_creation,type) VALUES
-(1, 2, 1, 'Demande de renseignements', 1, now(),'Départ'),
-(2, 1, 2, 'Réponse à la demande', 2, now(),'Arrivé');
+INSERT INTO courriers (expediteur, type , destination, traite_par, objet, etat_id, date_creation) VALUES
+(1,'Départ', 2, 1, 'Demande de renseignements', 1, '2025-02-06'),
+(1,'Départ', 3, 1, 'Demande de renseignements2', 1, '2025-01-19'),
+(2, 'Arrivé', 1, 2, 'Réponse à la demande', 1, '2025-02-03'),
+(1, 'Départ', 4, 2, 'Réponse à la demande1', 2, '2024-01-25'),
+(3, 'Arrivé', 1, 2, 'Réponse à la demande 3', 3, '2025-01-07'),
+(4, 'Arrivé', 1, 2, 'Réponse à la demande 4', 2, '2025-02-08'),
+(4, 'Arrivé', 1, 2, 'Réponse à la demande 5', 1, '2025-01-01');
+
+
+
+
 
 -- Insertion des fichiers
 INSERT INTO fichiers (type_courrier, type_support, fichier, courrier_id) VALUES
-('confidentiel', 'numerique', 'file1.pdf', 1),
-('urgent', 'papier', 'file2.pdf', 2);
+('confidentiel', 'numerique', 'fichier1.pdf
+', 1),
+('confidentiel', 'papier', 'fichier2.png
+', 1),
+('confidentiel', 'numerique', 'fichier5.png
+', 1),
+('confidentiel', 'papier', 'portfolio6.pdf
+', 1),
+('urgent', 'numerique', 'fichier2.png
+', 2),
+('confidentiel', 'papier', 'fichier3.png
+', 2),
+('urgent', 'numerique', 'fichier4.png
+', 3),
+('confidentiel', 'papier', 'fichier5.png
+', 5),
+('urgent', 'numerique', 'fichier6.png
+', 5),
+('confidentiel', 'papier', 'fichier2.png
+', 5),
+('urgent', 'papier', '
+', 6);
 
 -- Insertion des logs
 INSERT INTO Logs (user_id, description, date_action) VALUES

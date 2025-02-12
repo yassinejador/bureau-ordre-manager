@@ -14,6 +14,8 @@ CREATE TABLE `users`(
     `service_id` INT NOT NULL,
     `date_creation` DATE NOT NULL,
     `archived` BOOLEAN NOT NULL DEFAULT FALSE
+
+    
 );
 CREATE TABLE `departements`(
     `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,

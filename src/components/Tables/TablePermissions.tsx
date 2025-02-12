@@ -30,8 +30,8 @@ const TablePermission = ({ permissionsData }: { permissionsData: PERMISSION[] })
 
       <div className="mt-4 flex justify-end">
         <button className="px-4 py-2 bg-blue-600 text-white rounded-sm hover:bg-blue-700">
-          <Link href="/forms/form-ajouter-role">
-            Ajouter un nouveau rôle
+          <Link href="/forms/form-ajouter-permission">
+            Ajouter un nouveau Permission
           </Link>
         </button>
       </div>
