@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 import { addRole, fetchRoles } from '../../../../lib/queries/roles';
+import { getAuthenticatedUser } from '../../../../lib/auth';
+import { addLog } from '../../../../lib/queries/logs';
 
 export async function GET() {
     try {
@@ -13,6 +15,14 @@ export async function GET() {
 
 export async function POST(req: Request) {
   try {
+
+    const authenticatedUser = await getAuthenticatedUser();
+    if (!authenticatedUser) {
+      throw new Error("Utilisateur non authentifié");
+    }
+
+    console.log("🔍 ID utilisateur connecté :", authenticatedUser.id);
+    
     const { role } = await req.json();
 
     if (!role) {
@@ -20,6 +30,8 @@ export async function POST(req: Request) {
     }
 
     await addRole(role);
+
+    await addLog ( authenticatedUser.id, `Ajouter un role`);
 
     return NextResponse.json({ message: "Service ajouté" }, { status: 201 });
   } catch (error) {

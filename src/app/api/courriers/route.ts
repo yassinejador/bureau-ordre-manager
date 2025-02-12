@@ -4,6 +4,8 @@ import { existsSync } from "fs";
 import path from "path";
 import { getFSEtablissementsId } from "../../../../lib/queries/etablissements";
 import { addCourriers } from "../../../../lib/queries/courriers";
+import { getAuthenticatedUser } from "../../../../lib/auth";
+import { addLog } from "../../../../lib/queries/logs";
 
 export const dynamic = "force-dynamic";
 export const preferredRegion = ["auto", "global"];
@@ -22,6 +24,14 @@ interface CourrierData {
 
 export async function POST(req: NextRequest) {
   try {
+
+    const authenticatedUser = await getAuthenticatedUser();
+    if (!authenticatedUser) {
+      throw new Error("Utilisateur non authentifié");
+    }
+
+    console.log("🔍 ID utilisateur connecté :", authenticatedUser.id);
+
     const uploadDir = path.join(process.cwd(), "uploads");
     if (!existsSync(uploadDir)) {
       await mkdir(uploadDir, { recursive: true });
@@ -84,6 +94,10 @@ export async function POST(req: NextRequest) {
       courrierData.type_support,
       fichierNames,
     );
+
+
+    await addLog ( authenticatedUser.id, `Ajouter Courrier ${type}`);
+
 
     return NextResponse.json(
       { message: "Courrier et fichiers ajoutés avec succès" },
