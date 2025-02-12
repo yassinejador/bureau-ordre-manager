@@ -44,10 +44,28 @@ const fichesData: COURRIER[] = [
         id: 0,
         type_courrier: "",
         type_support: "",
-        courrier_id: 1,
+        courrier_id:2,
         fichier: ""
     }] 
   },
+  {
+    courrier_id: 3,
+    date_creation: "15dev2025",
+    expediteur: "",
+    traite_par: "Ahmed",
+    objet: "bdjd",
+    etat_id: "Clôturé",
+    destination: "FSL",
+    date_suppression: "",
+    actions: "",
+    fichier: [{
+      id: 0,
+      type_courrier: "",
+      type_support: "",
+      courrier_id: 3,
+      fichier: ""
+  }]
+},
 ];
 
 const TableFiches = () => {
@@ -84,11 +102,10 @@ const TableFiches = () => {
             </tr>
             <tr className="border-b border-gray-300 dark:border-gray-700">
               <td className="px-4 py-3 font-medium text-gray-700 dark:text-gray-300">Objet :</td>
-              <td className="px-4 py-3 text-gray-900 dark:text-white">{fiche.objet}</td>
+              <td className="px-4 py-3 text-gray-900 dark:text-white">{fiche.objet}</td>            </tr>
               <tr className="border-b border-gray-300 dark:border-gray-700">
               <td className="px-4 py-3 font-medium text-gray-700 dark:text-gray-300">Status :</td>
               <td className="px-4 py-3 text-gray-900 dark:text-white">{fiche.etat_id}</td>
-            </tr>
             </tr>
              {/* Mapping sur les fichiers */}
                         {fiche.fichier.map((file, index) => (
@@ -122,7 +139,7 @@ const TableFiches = () => {
           </tbody>
         </table>
       ) : (
-        <p className="text-red-500">Aucune fiche trouvée pour ce courrier.</p>
+        <p className="text-red-500">Aucun détails</p>
       )}
 
       {/* Bouton de retour */}

@@ -43,7 +43,7 @@ const fichesData: COURRIER[] = [
           type_courrier: "",
           type_support: "",
           courrier_id: 2,
-          fichier: ""
+          fichier: "Dossier.png"
       },],
   },
 ];
@@ -123,7 +123,7 @@ const TableFiches = () => {
           </tbody>
         </table>
       ) : (
-        <p className="text-red-500">Aucune fiche trouvée pour ce courrier.</p>
+        <p className="text-red-500">Aucune Détails pour ce courrier.</p>
       )}
 
       {/* Bouton de retour */}
