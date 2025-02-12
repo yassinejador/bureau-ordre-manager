@@ -1,3 +1,4 @@
+import { RowDataPacket } from 'mysql2';
 import pool from '../db';
 
 
