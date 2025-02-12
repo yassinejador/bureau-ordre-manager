@@ -12,8 +12,7 @@ CREATE TABLE `users`(
     `role_id` INT NOT NULL,
     `etablissement_id` INT NOT NULL,
     `service_id` INT NOT NULL,
-    `date_creation` DATE NOT NULL, 
-    `archived` BOOLEAN NOT NULL DEFAULT FALSE
+    `date_creation` DATE NOT NULL
 );
 CREATE TABLE `departements`(
     `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -22,8 +21,8 @@ CREATE TABLE `departements`(
 );
 CREATE TABLE `fichiers`(
     `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `type_courrier` ENUM('confidentiel', 'urgent')  NULL,
-    `type_support` ENUM('papier', 'numerique')  NULL,
+    `type_courrier` ENUM('confidentiel', 'urgent') NOT NULL,
+    `type_support` ENUM('papier', 'numerique') NOT NULL,
     `fichier` VARCHAR(255) NOT NULL,
     `courrier_id` INT NOT NULL
 );
@@ -37,19 +36,18 @@ CREATE TABLE `etablissements`(
 );
 CREATE TABLE `courriers`(
     `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `expediteur` INT  NULL,
-    `destination` INT  NULL,
-    `traite_par` INT  NULL,
+    `expediteur`  INT NOT NULL,
+    `type` ENUM('Départ', 'Arrivé'),
+    `destination` INT  ,
+    `traite_par` INT NULL ,
     `objet` TEXT NOT NULL,
-    `etat_id` INT  NULL,
-    `date_creation` DATE  NULL,
-    `date_suppression` DATETIME NULL,
-    `type` ENUM('Départ', 'Arrivé') NOT NULL
+    `etat_id` INT NOT NULL,
+    `date_creation` DATE NOT NULL,
+    `date_suppression` DATETIME NULL
 );
-
 CREATE TABLE `etats`(
     `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `etat` ENUM('Enattente', 'Traite', 'Cloture') NOT NULL
+    `etat` ENUM('En attente', 'Traite', 'Cloture') NOT NULL
 );
 CREATE TABLE `roles`(
     `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -59,7 +57,7 @@ CREATE TABLE `roles`(
 CREATE TABLE `permissions`(
     `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `nom` VARCHAR(255) NOT NULL,
-    `date_creation` DATE NOT NULL
+    `date_creation` DATE NULL
 );
 CREATE TABLE `Services`(
     `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -102,4 +100,3 @@ ALTER TABLE
     `courriers` ADD CONSTRAINT `courriers_expediteur_foreign` FOREIGN KEY(`expediteur`) REFERENCES `etablissements`(`id`);
 ALTER TABLE
     `users` ADD CONSTRAINT `users_etablissement_id_foreign` FOREIGN KEY(`etablissement_id`) REFERENCES `etablissements`(`id`);
-    
