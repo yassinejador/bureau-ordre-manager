@@ -3,11 +3,6 @@
 import React, { useState } from "react";
 import InputField from "../ui/InputField";
 import Alert from "@/components/Alerts/Alert";
-import { ROLE } from "@/types/role";
-import { ETABLISSEMENT } from "@/types/etablissement";
-import { SERVICE } from "@/types/service";
-
-
 
 interface FormData {
   nom: string;
@@ -17,13 +12,7 @@ interface FormData {
   serviceId: string;
 }
 
-interface Props {
-  roles: ROLE[];
-  etablissements: ETABLISSEMENT[];
-  services:SERVICE[];
-}
-
-const NouveauUtilisateurForm: React.FC<Props> = ({ roles, etablissements, services }) => {
+const NouveauUtilisateurForm: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
     nom: "",
     prenom: "",
@@ -33,6 +22,24 @@ const NouveauUtilisateurForm: React.FC<Props> = ({ roles, etablissements, servic
   });
 
   const [alert, setAlert] = useState<{ message: string; type: "success" | "danger" | "info" } | null>(null);
+
+  const roles = [
+    { id: "1", name: "Admin" },
+    { id: "2", name: "Utilisateur" },
+    { id: "3", name: "Manager" },
+  ];
+
+  const etablissements = [
+    { id: "1", name: "Etablissement A" },
+    { id: "2", name: "Etablissement B" },
+    { id: "3", name: "Etablissement C" },
+  ];
+
+  const services = [
+    { id: "1", name: "Service 1" },
+    { id: "2", name: "Service 2" },
+    { id: "3", name: "Service 3" },
+  ];
 
   const handleChange = (field: keyof FormData, value: string) => {
     setFormData((prev) => ({

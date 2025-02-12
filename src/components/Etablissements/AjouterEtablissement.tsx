@@ -1,109 +1,65 @@
 "use client";
 
 import React, { useState } from "react";
-import { ETABLISSEMENT } from "@/types/etablissement"; // Assurez-vous du bon chemin d'import
+import { ETABLISSEMENT } from "@/types/etablissement";
 
-type AjouterEtablissementProps = {
-  addEtablissement: (newEtablissement: ETABLISSEMENT) => void;
+type Props = {
+  addEtablissements?: (newEtablissement: ETABLISSEMENT) => void;
 };
 
-const AjouterEtablissement: React.FC<AjouterEtablissementProps> = ({ addEtablissement }) => {
-  const [newEtablissement, setNewEtablissement] = useState<ETABLISSEMENT>({
+const AjouterEtablissement = ({ addEtablissements }: Props) => {
+  const [formData, setFormData] = useState<ETABLISSEMENT>({
     id: 0,
     intitule: "",
     adresse: "",
     ville: "",
-    fax: "",
-    telephone: "",
+    fax: 0,
+    telephone: 0,
   });
 
+  
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setNewEtablissement({
-      ...newEtablissement,
-      [name]: value,
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (newEtablissement.intitule && newEtablissement.ville) {
-      addEtablissement(newEtablissement);
-      setNewEtablissement({
-        id: 0,
-        intitule: "",
-        adresse: "",
-        ville: "",
-        fax: "",
-        telephone: "",
-      });
+    if (addEtablissements) {
+      addEtablissements(formData);
     }
+    setFormData({
+      id: 0,
+      intitule: "",
+      adresse: "",
+      ville: "",
+      fax: 0,
+      telephone: 0,
+    });
   };
 
   return (
     <div className="bg-white p-6 rounded-md shadow-md w-full max-w-md mx-auto">
-      <h1 className="mb-6 text-xl font-semibold text-black dark:text-white">Formulaire Pour Ajouter un Établissement</h1>
+      <h1 className="mb-6 text-xl font-semibold">Ajouter un Établissement</h1>
       <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label htmlFor="intitule" className="p-3 text-center font-medium uppercase text-black dark:text-white">Intitulé</label>
-          <input
-            type="text"
-            id="intitule"
-            name="intitule"
-            value={newEtablissement.intitule}
-            onChange={handleChange}
-            required
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="ville" className="p-3 text-center font-medium uppercase text-black dark:text-white">Ville</label>
-          <input
-            type="text"
-            id="ville"
-            name="ville"
-            value={newEtablissement.ville}
-            onChange={handleChange}
-            required
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="telephone" className="p-3 text-center font-medium uppercase text-black dark:text-white">Téléphone</label>
-          <input
-            type="text"
-            id="telephone"
-            name="telephone"
-            value={newEtablissement.telephone}
-            onChange={handleChange}
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="fax" className="p-3 text-center font-medium uppercase text-black dark:text-white">Fax</label>
-          <input
-            type="text"
-            id="fax"
-            name="fax"
-            value={newEtablissement.fax}
-            onChange={handleChange}
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="adresse" className="p-3 text-center font-medium uppercase text-black dark:text-white">Adresse</label>
-          <input
-            type="text"
-            id="adresse"
-            name="adresse"
-            value={newEtablissement.adresse}
-            onChange={handleChange}
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
-          />
-        </div>
-        
-        <button type="submit" className="w-full px-4 font-medium py-2 bg-blue-600 text-white rounded-sm hover:bg-blue-700">
-          Ajouter l'Établissement
+        {["intitule", "ville", "telephone", "fax", "adresse"].map((field) => (
+          <div key={field} className="mb-4">
+            <label htmlFor={field} className="block font-medium">
+              {field.charAt(0).toUpperCase() + field.slice(1)}
+            </label>
+            <input
+              type="text"
+              id={field}
+              name={field}
+              value={(formData as any)[field]}
+              onChange={handleChange}
+              required
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+            />
+          </div>
+        ))}
+        <button type="submit" className="w-full px-4 py-2 bg-blue-600 text-white rounded-md">
+          Ajouter
         </button>
       </form>
     </div>

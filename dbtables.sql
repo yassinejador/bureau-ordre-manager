@@ -12,8 +12,7 @@ CREATE TABLE `users`(
     `role_id` INT NOT NULL,
     `etablissement_id` INT NOT NULL,
     `service_id` INT NOT NULL,
-    `date_creation` DATE NOT NULL, 
-    `archived` BOOLEAN NOT NULL DEFAULT FALSE
+    `date_creation` DATE NOT NULL
 );
 CREATE TABLE `departements`(
     `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -70,7 +69,7 @@ CREATE TABLE `Logs`(
     `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `user_id` INT NOT NULL,
     `description` TEXT NOT NULL,
-    `date_action` DATE NOT NULL
+    `date_action` DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 CREATE TABLE `permissionDetails`(
     `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,

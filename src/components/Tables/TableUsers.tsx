@@ -62,7 +62,7 @@ const handleEdit = (user: USER) => {
           <div className="bg-white text-black p-4 rounded-t-lg flex items-center justify-between  rounded-sm border border-stroke bg-white px-5 pb-5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5">
 
           <h4 className="mb-6 text-xl font-semibold text-black dark:text-white">Liste des Utilisateurs</h4>
-          <Link href="/forms/form-ajouter-etablissements">
+          <Link href="/utilisateur/nouveau">
          <button className="bg-blue-600 text-white p-2 rounded-full hover:bg-gray-200 transition duration-200 flex items-center justify-center w-12 h-12">
           <FaPlus size={25} />
           

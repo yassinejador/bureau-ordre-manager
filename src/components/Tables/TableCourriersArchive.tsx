@@ -1,8 +1,9 @@
 "use client";
-import { FICHE } from "@/types/fiche";
-import { COURRIER } from "@/types/courrier";
-import React, { useState, useEffect } from "react";
-import Link from "next/link";
+import Link from 'next/link';
+import { useState } from "react";
+import { FaPlus } from "react-icons/fa";
+import { COURRIER } from "@/types/courrier"; // Importez vos types
+import {FICHE } from  "@/types/fiche";
 
 
 
@@ -11,48 +12,47 @@ const TableCourriersArchive: React.FC = () => {
   
     const courriers: COURRIER[] = [
       {
-        id: 1,
+        courrier_id: 1,
         date_creation: "15 dev 2025",
         expediteur: "ENCG",
         traite_par: "Ahmed",
         objet: "hh",
-        statut: "Départ",
+        etat_id: "Départ",
         destination: "Ensa",
         date_suppression: "",
         actions: "",
-        fichiers: [
-          { id: 1, type_courrier: "PDF", type_support: "Document", fichier: "Document1.pdf", courrier_id: 1 },
-          { id: 2, type_courrier: "Image", type_support: "Image", fichier: "Image1.jpg", courrier_id: 1 }
-        ],
-        type: ""
+        fichier:[ 
+      { id: 1, type_courrier: "PDF", type_support: "Document", fichier: "Document1.pdf", courrier_id: 1 },
+      { id: 2, type_courrier: "Image", type_support: "Image", fichier: "Image1.jpg", courrier_id: 1 }
+   ],
       },
       {
-        id: 2,
-        date_creation: "Jan 13 2023",
-        expediteur: "ENCG",
-        objet: "bdjd",
-        statut: " Arrivé",
-        destination: "Ensa",
-        date_suppression: "",
-        actions: "",
-        traite_par: "",
-        fichiers: [{ id: 1, type_courrier: "PDF", type_support: "Document", fichier: "Document1.pdf", courrier_id: 1 },
-        { id: 2, type_courrier: "Image", type_support: "Image", fichier: "Image1.jpg", courrier_id: 1 }
-        ],
-        type: ""
+          courrier_id: 2,
+          date_creation: "Jan 13 2023",
+          expediteur: "ENCG",
+          objet: "bdjd",
+          etat_id: " Arrivé",
+          destination: "Ensa",
+          date_suppression: "",
+          actions: "",
+          traite_par: "",
+          fichier: [{ id: 1, type_courrier: "PDF", type_support: "Document", fichier: "Document1.pdf", courrier_id: 1 },
+          { id: 2, type_courrier: "Image", type_support: "Image", fichier: "Image1.jpg", courrier_id: 1 }
+       ],
       },
     ];
 
 
   return (
     <div className="rounded-sm border border-stroke bg-white px-5 pb-5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5">
-      <h4 className="mb-6 text-xl font-semibold text-black dark:text-white">Liste des Courriers Archivés</h4>
+      <div className="bg-white text-black p-4 rounded-t-lg flex items-center justify-between rounded-sm border border-stroke bg-white px-5 pb-5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5">
+        <h4 className="mb-6 text-xl font-semibold text-black dark:text-white">Liste des Courriers Archivés</h4>
+      </div>
 
-        
       <div className="flex flex-col">
-        {/* Table Header */}*/
+        {/* Table Header */}
     
-        /*<div className="grid grid-cols-7 sm:grid-cols-7 rounded-sm bg-gray-200 dark:bg-meta-4">
+        <div className="grid grid-cols-7 sm:grid-cols-7 rounded-sm bg-gray-200 dark:bg-meta-4">
           
                 <div className="p-3 text-center font-medium uppercase text-black dark:text-white">ID</div>
                 <div className="p-3 text-center font-medium uppercase text-black dark:text-white">Expéditeur</div>
@@ -64,19 +64,19 @@ const TableCourriersArchive: React.FC = () => {
               </div>
             {/* Table Rows */}
               {courriers.map((courrier) => (
-                <div key={courrier.id}
+                <div key={courrier.courrier_id}
                 className={`grid grid-cols-7 sm:grid-cols-7 items-center border-b border-stroke dark:border-strokedark last:border-b-0`}
                 >
-                  <div className="p-3 text-center text-black dark:text-white">{courrier.id}</div>
+                  <div className="p-3 text-center text-black dark:text-white">{courrier.courrier_id}</div>
                   <div className="p-3 text-center text-black dark:text-white">{courrier.expediteur}</div>
                   <div className="p-3 text-center text-black dark:text-white">{courrier.destination}</div>
                   <div className="p-3 text-center text-black dark:text-white">{courrier.date_creation}</div>
-                  <div className="p-3 text-center text-black dark:text-white">{courrier.statut}</div>
+                  <div className="p-3 text-center text-black dark:text-white">{courrier.etat_id}</div>
                   
                   <div className="p-3 text-center text-black dark:text-white">
-                    {courrier.fichiers.length > 0 ? (
+                    {courrier.fichier.length > 0 ? (
                       <ul>
-                        {courrier.fichiers.map((file, index) => (
+                        {courrier.fichier.map((file, index) => (
                           <li key={index}>
                             <a href={file.fichier} className="text-blue-500 underline" target="_blank" rel="noopener noreferrer">
                               {file.fichier}
@@ -114,7 +114,7 @@ const TableCourriersArchive: React.FC = () => {
             
         </div>
       </div>
-   
+    </div>
   );
 };
 

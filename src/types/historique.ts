@@ -1,7 +1,8 @@
 export type LOG = {
   id: number;
-  user: string;
-  userId: number;
+  nom: string; 
+  prenom: string;
+  user_id: number;
   description: string;
-  dateAction: string;
+  date_action: string;
 }
