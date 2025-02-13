@@ -2,18 +2,18 @@ import React from "react";
 import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
-import SearchForm from "@/components/BarreRecherche/barrerecherche";
+import RechercheForm from "@/components/BarreRecherche/barrerecherche";
 export const metadata: Metadata = {
-  title: "Next.js Form Elements | TailAdmin - Next.js Dashboard Template",
+  title: "Recherche Courriers",
   description:
-    "This is Next.js Form Elements page for TailAdmin - Next.js Tailwind CSS Admin Dashboard Template",
+    "Recherché les courriers arrivés et départs",
 };
 
 const FormElementsPage = () => {
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Recherché" />
-      <SearchForm/>
+      <RechercheForm/>
     </DefaultLayout>
   );
 };

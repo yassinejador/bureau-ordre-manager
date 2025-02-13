@@ -36,7 +36,9 @@ const RechercheForm = () => {
       <form onSubmit={handleRecherche} className="space-y-4">
         {/* Type de courrier */}
         <div>
-          <label className="block text-sm font-medium text-gray-700">Type</label>
+          <label className="block text-sm font-medium text-gray-700">Type
+           <span className="text-red-500">(OBLIGATOIRE)</span>
+          </label>
           <select
             value={type}
             onChange={(e) => setType(e.target.value)}

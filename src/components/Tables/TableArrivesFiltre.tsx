@@ -4,9 +4,11 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { COURRIER } from "@/types/courrier"; 
 import dateformat from "../../../helpers/dateformat";
+import { useRouter } from "next/navigation";
 
 const ArrivePage = () => {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const [courriers, setCourriers] = useState<COURRIER[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -84,6 +86,13 @@ const ArrivePage = () => {
           </tbody>
         </table>
       )}
+      <div> {/* Bouton de retour */}
+        <button
+          onClick={() => router.back()}
+          className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+        >
+          Retour
+        </button></div>
     </div>
   );
 };

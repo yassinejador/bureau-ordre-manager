@@ -29,7 +29,7 @@ export const fetchCourriers = async () => {
 
 export const deleteCourrier = async (id: number): Promise<ResultSetHeader> => {
     // Effectuer la requête pour marquer le courrier comme supprimé (en mettant la date_suppression)
-    const [result] = await pool.query<ResultSetHeader>(`
+    const [result] = await pool.execute<ResultSetHeader>(`
         UPDATE courriers
         SET date_suppression = NOW()
         WHERE id = ? AND destination = (SELECT id FROM etablissements WHERE intitule = 'FS'  LIMIT 1) AND date_suppression IS NULL
