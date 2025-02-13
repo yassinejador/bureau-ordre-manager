@@ -5,7 +5,7 @@ import pool from "../db";
 export const fetchFichierJoints = async () => {
   const [fichiersJoints] = await pool.query(`
   SELECT 
-  f.id AS fichier_id, 
+  f.id AS id, 
   f.type_courrier, 
   f.type_support, 
   f.fichier, 

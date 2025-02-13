@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { fetchFichierJoints } from "../../../../lib/queries/fichierJoints";
+import { fetchFichierJoints } from "../../../../../lib/queries/fichierJoints";
 
 export async function GET() {
   try {

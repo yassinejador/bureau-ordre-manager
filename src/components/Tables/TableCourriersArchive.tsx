@@ -41,16 +41,16 @@ const TableCourriersArchive = ({ courriers, setCourriers }: TableCourrierArchive
         {courriers.map((courrier) => (
           <div key={courrier.id} className="grid grid-cols-7 sm:grid-cols-7 items-center border-b border-stroke dark:border-strokedark last:border-b-0">
             <div className="p-3 text-center text-black dark:text-white">{courrier.id}</div>
-            <div className="p-3 text-center text-black dark:text-white">{courrier.expediteur_nom}</div>
-            <div className="p-3 text-center text-black dark:text-white">{courrier.destination_nom}</div>
+            <div className="p-3 text-center text-black dark:text-white">{courrier.expediteur}</div>
+            <div className="p-3 text-center text-black dark:text-white">{courrier.destination}</div>
             <div className="p-3 text-center text-black dark:text-white">{courrier.date_creation}</div>
             <div className="p-3 text-center text-black dark:text-white">
-              {courrier.destination_nom === "FS" ? "Arrivé" : "Départ"}
+              {courrier.destination === "FS" ? "Arrivé" : "Départ"}
             </div>
             <div className="p-3 text-center text-black dark:text-white">
-  {courrier.fichiers_noms && courrier.fichiers_noms.trim().length > 0 ? (
+  {courrier.fichiers && courrier.fichiers.trim().length > 0 ? (
     <div className="flex flex-col items-center">
-      {courrier.fichiers_noms.split(",").map((fichier, index) => {
+      {courrier.fichiers.split(",").map((fichier, index) => {
         const fichierTrim = fichier.trim(); // Supprime les espaces autour
         return (
           <a 

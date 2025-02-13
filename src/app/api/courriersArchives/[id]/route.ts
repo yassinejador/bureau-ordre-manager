@@ -12,12 +12,12 @@ export async function GET(request: Request, { params }: { params: { id: string }
       `
       SELECT 
         c.id,
-        exp.intitule AS expediteur_nom, 
-        dest.intitule AS destination_nom, 
-        COALESCE(GROUP_CONCAT(f.fichier SEPARATOR ', '), '') AS fichiers_noms,  
-        CONCAT(u.nom, ' ', u.prenom) AS traite_par_nom,
+        exp.intitule AS expediteur, 
+        dest.intitule AS destination, 
+        COALESCE(GROUP_CONCAT(f.fichier SEPARATOR ', '), '') AS fichiers,  
+        CONCAT(u.nom, ' ', u.prenom) AS traite_par,
         c.objet AS objet,
-        e.etat AS etat_courrier,
+        e.etat AS statut,
         c.date_creation,
         c.date_suppression
       FROM courriers c
