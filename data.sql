@@ -35,7 +35,7 @@ INSERT INTO Services (nom, date_creation) VALUES
 
 -- Insertion des utilisateurs
 INSERT INTO users (email, password, nom, prenom, role_id, etablissement_id, service_id, date_creation) VALUES
- ('user.user@fs.ucd.ac.ma', '$2a$10$7C1/qUL/iMD8i.HUDzDABuuYXuxtZLI1hYnlgKlrXADRfANLpLBd6', 'JEhom', 'ARMANE', 1, 1, 1, CURDATE()),
+ ('user.user@fs.ucd.ac.ma', '$2a$10$7C1/qUL/iMD8i.HUDzDABuuYXuxtZLI1hYnlgKlrXADRfANLpLBd6', 'Hassan', 'Ahmed', 1, 1, 1, CURDATE()),
 ('user.user1@fs.ucd.ac.ma', '$2a$10$2fcilhpvj4zlBw8RsVyvW.99N7JaJbTpot9Ln4/QZF1qwXAxIflKO', 'Ahmed', 'saferioui', 2, 2, 2, CURDATE());
 
 -- Insertion des départements

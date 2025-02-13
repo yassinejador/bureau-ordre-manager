@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { COURRIER } from "@/types/courrier";
 
-const ListFichiers = ({ courrier, onShow, onNoFiles }: { courrier: COURRIER, onShow: (id: number) => void, onNoFiles: (id: number) => void }) => {
+const ListFichiers = ({ courrier, onNoFiles }: { courrier: COURRIER, onNoFiles: (id: number) => void }) => {
   const [files, setFiles] = useState<string[]>([]);
 
   const loadFiles = async (id: number) => {

@@ -21,7 +21,7 @@ async function fetchCourriers(): Promise<COURRIER[]> {
     }
 
     const data = await res.json();
-    return data.courriers || []; // Correction du nom
+    return data.courriers || []; 
   } catch (error) {
     console.error("Erreur lors de la récupération des courriers :", error);
     return [];
@@ -29,7 +29,7 @@ async function fetchCourriers(): Promise<COURRIER[]> {
 }
 
 const Courriers = async () => {
-  const courriers = await fetchCourriers(); // Correction du nom
+  const courriers = await fetchCourriers(); 
 
   return (
     <DefaultLayout>

@@ -4,7 +4,7 @@ import path from "path";
 import { readFile, stat } from "fs/promises";
 
 export async function GET(req: NextRequest) {
-  const file = req.nextUrl.searchParams.get("file"); // 🔥 Plus simple !
+  const file = req.nextUrl.searchParams.get("file"); // Plus simple !
 
 
   if (!file) {
@@ -15,7 +15,7 @@ export async function GET(req: NextRequest) {
 
   try {
     await stat(filePath); // Vérifie si le fichier existe
-    const fileBuffer = await readFile(filePath); // Lit le fichier
+    const fileBuffer = await readFile(filePath); // Lit le fichier 
     const ext = path.extname(file).toLowerCase();
 
     // Définition du type MIME correct
