@@ -33,7 +33,7 @@ const Courriers = async () => {
 
   return (
     <DefaultLayout>
-      <Breadcrumb pageName="Arrivés" />
+      <Breadcrumb pageName="Arrivéss" />
       <div className="flex flex-col gap-10">
         <TableArrives courriersData={courriers} />
       </div>

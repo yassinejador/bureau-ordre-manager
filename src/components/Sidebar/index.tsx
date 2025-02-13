@@ -102,7 +102,7 @@ const menuGroups = [
             label: "Courriers",
             route: "#",
             children: [
-              { label: "Courrier Arrivés", route: "/courriers/arrives" },
+              { label: "Courrier Arrivées", route: "/courriers/arrives" },
               { label: "Courrier Dépats", route: "/courriers/departs" },
               { label: "Recherche", route: "/courriers/recherche" },
             ],
