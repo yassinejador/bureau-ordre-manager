@@ -13,4 +13,5 @@ export type COURRIER = {
     date_suppression:string,
     fichiers:FICHE[],
     actions:string,
+  
 }

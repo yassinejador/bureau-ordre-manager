@@ -17,7 +17,7 @@ export const updateEtablissement = async (
       throw new Error("Utilisateur non authentifié");
     }
 
-    console.log("🔍 ID utilisateur connecté :", authenticatedUser.id);
+    console.log(" ID utilisateur connecté :", authenticatedUser.id);
     
 
     console.log("Mise à jour dans la base de données :", { id, intitule, adresse, ville,fax,telephone });

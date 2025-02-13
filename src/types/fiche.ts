@@ -4,4 +4,5 @@ export type FICHE={
   type_support:string,
   fichier:string,
   courrier_id:number,
+  fichier:String,
 }

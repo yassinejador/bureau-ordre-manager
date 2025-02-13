@@ -4,7 +4,7 @@ import path from "path";
 import { readFile, stat } from "fs/promises";
 
 export async function GET(req: NextRequest) {
-  const file = req.nextUrl.searchParams.get("file"); // 🔥 Plus simple !
+  const file = req.nextUrl.searchParams.get("file"); // Plus simple !
 
 
   if (!file) {

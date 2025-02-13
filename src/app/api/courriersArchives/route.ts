@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server';
-import pool from "../../../../lib/db"; // Assure-toi que le chemin est correct
 import { fetchCourriersArchives } from '../../../../lib/queries/courrierArchive';
 
 

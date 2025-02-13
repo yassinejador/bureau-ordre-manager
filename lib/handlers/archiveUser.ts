@@ -11,7 +11,7 @@ export const archiveUser = async (id: number) => {
       throw new Error("Utilisateur non authentifié");
     }
 
-    console.log("🔍 ID utilisateur connecté :", authenticatedUser.id);
+    console.log(" ID utilisateur connecté :", authenticatedUser.id);
     
 
     const [result] = await pool.query('UPDATE users SET archived = TRUE WHERE id = ?', [id]);

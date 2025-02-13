@@ -11,26 +11,60 @@ export const metadata: Metadata = {
 // Fonction pour récupérer les détails du courrier depuis l'API
 async function getCourrierDetails(id: string) {
   try {
-    const response = await fetch(`${process.env.API_URL}/api/courriersArchives/${id}`, {
+    const courrierResponse = await fetch(`${process.env.API_URL}/api/courriersArchives/${id}`, {
       cache: "no-store", // Pour éviter la mise en cache
     });
 
-    if (!response.ok) {
+    if (!courrierResponse.ok) {
       throw new Error("Erreur lors de la récupération des détails du courrier");
     }
 
-    const data = await response.json();
-    return data.courrier[0]; // Assurez-vous que l'API retourne bien un objet avec une propriété `courrier`
-  } catch (error) {
-    console.error("Erreur :", error);
-    return null;
+    const courrierData = await courrierResponse.json();
+    console.log("courrier info =", courrierData);
+    const courrier = courrierData.courrier[0];
+
+    
+    
+    // fonction pour Récupérer les informations des fichiers
+    const fichiersResponse = await fetch(`${process.env.API_URL}/api/fichierJointsArchive/${id}`, {
+      cache: "no-store",
+    });
+
+    if (!fichiersResponse.ok) {
+      throw new Error("Erreur lors de la récupération des fichiers du courrier");
+    }
+
+    const fichiersData = await fichiersResponse.json();
+    console.log("fichier = ", fichiersData);
+     // Filtrer les fichiers joints pour ne garder que ceux associés à ce courrier
+    const fichiersAssocies = fichiersData.fichiersJoints.filter(
+      (fichier: any) => fichier.courrier_id === parseInt(id)
+    );
+    // Structurer les fichiers pour l'affichage
+    const fichiersStructurés = fichiersAssocies.map((fichier: any) => ({
+      fichier: fichier.fichier.trim(),// Nom du fichier (enlever les espaces et sauts de ligne)
+      type_courrier: fichier.type_courrier || "Inconnu", // Type du courrier
+      type_support: fichier.type_support || "Inconnu", // Type de support
+    }));
+
+    console.log("Fichiers structurés :", fichiersStructurés);
+    // Ajouter les fichiers structurés au courrier
+     courrier.fichiers = fichiersStructurés;
+
+
+     return courrier; // Retourner le courrier avec les fichiers associés
+    } catch (error) {
+      console.error("Erreur :", error);
+      return null; // Retourner null en cas d'erreur
+    }
   }
-}
+
+  
 
 // Page principale
 export default async function CourrierDetailsPage({ params }: { params: { Id: string } }) {
-  console.log("Params:", params);
-  // Vérifiez que l'ID est bien défini
+  console.log("ID reçu:", params);
+  // Vérification de l'ID 
   if (!params.Id) {
     return (
       <DefaultLayout>
@@ -45,7 +79,7 @@ export default async function CourrierDetailsPage({ params }: { params: { Id: st
   // Récupérer les détails du courrier
   const courrier = await getCourrierDetails((params.Id));
 
-  // Si le courrier n'existe pas, afficher un message d'erreur
+  
   if (!courrier) {
     return (
       <DefaultLayout>
