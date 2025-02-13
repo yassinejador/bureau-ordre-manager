@@ -3,7 +3,7 @@ import { ResultSetHeader, RowDataPacket } from 'mysql2'; // Importer le type Res
 
 
 export const fetchCourriers = async () => {
-    const [courriers] = await pool.query(`
+    const [courriers] = await pool.query<RowDataPacket[]>(`
         SELECT 
             c.id, 
             c.date_creation, 
