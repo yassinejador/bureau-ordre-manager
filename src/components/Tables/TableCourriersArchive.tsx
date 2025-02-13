@@ -28,13 +28,13 @@ const TableCourriersArchive = ({ courriers, setCourriers }: TableCourrierArchive
       <div className="flex flex-col">
         {/* Table Header */}
         <div className="grid grid-cols-7 sm:grid-cols-7 rounded-sm bg-gray-200 dark:bg-meta-4">
-          <div className="p-3 text-center font-medium uppercase text-black dark:text-white">ID</div>
-          <div className="p-3 text-center font-medium uppercase text-black dark:text-white">Expediteur</div>
-          <div className="p-3 text-center font-medium uppercase text-black dark:text-white">Destination</div>
-          <div className="p-3 text-center font-medium uppercase text-black dark:text-white">Date d'archivage</div>
-          <div className="p-3 text-center font-medium uppercase text-black dark:text-white">Type</div>
-          <div className="p-3 text-center font-medium uppercase text-black dark:text-white">Fichiers Joints</div>
-          <div className="p-3 text-center font-medium uppercase text-black dark:text-white">Actions</div>
+          <div className="p-3 text-center font-medium  text-black dark:text-white">N°Courrier</div>
+          <div className="p-3 text-center font-medium  text-black dark:text-white">Expediteur</div>
+          <div className="p-3 text-center font-medium  text-black dark:text-white">Destination</div>
+          <div className="p-3 text-center font-medium  text-black dark:text-white">Date d'archivage</div>
+          <div className="p-3 text-center font-medium  text-black dark:text-white">Type</div>
+          <div className="p-3 text-center font-medium  text-black dark:text-white">Fichiers Joints</div>
+          <div className="p-3 text-center font-medium  text-black dark:text-white">Actions</div>
         </div>
 
         {/* Table Rows */}
