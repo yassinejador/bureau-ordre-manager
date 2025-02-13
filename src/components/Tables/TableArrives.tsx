@@ -11,7 +11,6 @@ import DowloadFichiers from "@/app/Actions/telechargerfichierarrives/page";
 const TableArrives = ({ courriersData }: { courriersData: COURRIER[] }) => {
   const [courriers, setCourriers] = useState(courriersData);
   const [message, setMessage] = useState("");
-  const [showFiles, setShowFiles] = useState<{ [key: number]: boolean }>({});
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [showDownloadAlert, setShowDownloadAlert] = useState(false);
@@ -23,20 +22,15 @@ const TableArrives = ({ courriersData }: { courriersData: COURRIER[] }) => {
     setTimeout(() => setMessage(""), 7000);
   };
 
-  const handleShowFiles = (id: number) => {
-    setShowFiles((prevState) => ({
-      ...prevState,
-      [id]: !prevState[id],
-    }));
-  };
+  
 
   const handleNoFilesAlert = (id: number) => {
-    setAlertMessage(`Aucun fichier trouvé pour le courrier ${id}.`);
     setShowAlert(true);
+    setAlertMessage(`Aucun fichier trouvé pour le courrier ${id}.`);
     setTimeout(() => setShowAlert(false), 5000);
   };
 
-  const handleDownloadSuccess = (id: number) => {
+  const handleDownloadEchec = (id: number) => {
     setDownloadMessage(`Téléchargement échoué pour le courrier ${id} !`);
     setShowDownloadAlert(true);
     setTimeout(() => setShowDownloadAlert(false), 5000);
@@ -82,9 +76,9 @@ const TableArrives = ({ courriersData }: { courriersData: COURRIER[] }) => {
                   </td>
                   <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                     <div className="flex items-center space-x-3.5">
-                      <ListFichiers courrier={courrier} onShow={handleShowFiles} onNoFiles={handleNoFilesAlert} />
+                      <ListFichiers courrier={courrier}  onNoFiles={handleNoFilesAlert} />
                       <DeleteCourrier courrier={courrier} onDelete={handleDelete} />
-                      <DowloadFichiers courrier={courrier} onNoFiles={handleDownloadSuccess}  />
+                      <DowloadFichiers courrier={courrier} onNoFiles={handleDownloadEchec}  />
 
                       <Link href={`/courriers/arrives/${courrier.id}`} className="hover:text-primary p-2 rounded-md">
                         <svg
