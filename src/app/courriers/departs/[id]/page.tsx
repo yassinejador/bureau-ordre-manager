@@ -93,7 +93,9 @@ const TableFiches = () => {
               </tr>
               <tr className="border-b border-gray-300 dark:border-gray-700">
                 <td className="px-4 py-3 font-medium text-gray-700 dark:text-gray-300">Statut :</td>
-                <td className="px-4 py-3 text-gray-900 dark:text-white">{courrier.statut}</td>
+                <td className="px-4 py-3 text-gray-900 dark:text-white">
+                  <p className={`inline-flex rounded-full bg-opacity-10 px-3 py-1 text-sm font-medium ${courrier.statut === "Cloture" ? "bg-success text-success" : courrier.statut === "Traite" ? "bg-warning text-warning" : "bg-danger text-danger"}`}>
+                {courrier.statut}</p></td>
               </tr>
 
               {/* Gestion des fichiers */}
