@@ -1,15 +1,9 @@
 import { useEffect, useState } from "react";
-
-interface User {
-  id: number;
-  email: string;
-  nom: string;
-  prenom: string;
-}
+import { USER } from "@/types/users";
 
 export const useUser = () => {
-  const [user, setUser] = useState<User | null>(null);
-
+  const [user, setUser] = useState<USER | null>(null);
+  console.log(user);
   useEffect(() => {
     const fetchUser = async () => {
       try {

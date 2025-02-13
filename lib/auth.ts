@@ -80,10 +80,20 @@ export const getAuthenticatedUser = async () => {
     const decoded = verifyToken(token);
 
     const [users] = await pool.execute(
-      `SELECT users.id, users.email, users.nom, users.prenom, roles.role 
-       FROM users 
-       JOIN roles ON users.role_id = roles.id 
-       WHERE users.id = ?`,
+      `SELECT 
+      users.id, 
+      users.email, 
+      users.password,
+      users.nom, 
+      users.prenom, 
+      roles.role, 
+      etablissements.intitule AS etablissement_intitule, 
+      services.nom AS service_nom
+      FROM users
+      JOIN roles ON users.role_id = roles.id
+      JOIN etablissements ON users.etablissement_id = etablissements.id
+      JOIN services ON users.service_id = services.id
+      WHERE users.id = ?`,
       [decoded.id],
     );
 
