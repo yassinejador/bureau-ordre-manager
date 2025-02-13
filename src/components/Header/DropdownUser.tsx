@@ -67,8 +67,6 @@ const DropdownUser = () => {
           />
         </svg>
       </Link>
-
-      {/* <!-- Dropdown Start --> */}
       {dropdownOpen && (
         <div
           className={`absolute right-0 mt-4 flex w-62.5 flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark`}
@@ -96,7 +94,7 @@ const DropdownUser = () => {
                     fill=""
                   />
                 </svg>
-                My Profile
+                Mon Profil
               </Link>
             </li>
           </ul>
@@ -121,11 +119,10 @@ const DropdownUser = () => {
                 fill=""
               />
             </svg>
-            Log Out
+            Se déconnecter
           </button>
         </div>
       )}
-      {/* <!-- Dropdown End --> */}
     </ClickOutside>
   );
 };

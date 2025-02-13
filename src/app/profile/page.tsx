@@ -1,19 +1,20 @@
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
+import ProfileComponent from "@/components/profile/ProfileComponent";
 
 export const metadata: Metadata = {
-  title: "Next.js Profile | TailAdmin - Next.js Dashboard Template",
-  description:
-    "This is Next.js Profile page for TailAdmin - Next.js Tailwind CSS Admin Dashboard Template",
+  title: "Mon Profil",
+  description: "Consultez et mettez à jour votre profil utilisateur.",
 };
 
 const Profile = () => {
   return (
     <DefaultLayout>
-      <div className="mx-auto max-w-242.5">
-        <Breadcrumb pageName="Profile" />
+      <div className="mx-auto">
+        <Breadcrumb pageName="Profil" />
       </div>
+      <ProfileComponent />
     </DefaultLayout>
   );
 };
