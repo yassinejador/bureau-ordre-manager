@@ -40,9 +40,7 @@ const ArrivePage = () => {
 
   return (
     <div className="p-6 bg-white dark:bg-gray-800 shadow-md rounded-lg">
-      <h1 className="text-xl font-bold mb-4 text-black dark:text-white">
-        Résultats des courriers Arrivés
-      </h1>
+      
 
       {loading ? (
         <p className="text-gray-500 dark:text-gray-300 text-center">Chargement des courriers...</p>
