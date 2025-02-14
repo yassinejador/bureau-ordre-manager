@@ -3,10 +3,10 @@ import React, { useState } from "react";
 import { COURRIER } from "@/types/courrier";
 import Link from "next/link";
 import dateformat from "../../../helpers/dateformat";
-import DeleteCourrier from "@/app/Actions/supprimercourrierarrives/page";
+import DeleteCourrier from "@/app/actions/supprimercourrierarrives/page";
 import Alert from "@/components/Alerts/Alert";
-import ListFichiers from "@/app/Actions/afficherfichierarrives/page";
-import DowloadFichiers from "@/app/Actions/telechargerfichierarrives/page";
+import ListFichiers from "@/app/actions/afficherfichierarrives/page";
+import DowloadFichiers from "@/app/actions/telechargerfichierarrives/page";
 
 const TableArrives = ({ courriersData }: { courriersData: COURRIER[] }) => {
   const [courriers, setCourriers] = useState(courriersData);
@@ -25,8 +25,8 @@ const TableArrives = ({ courriersData }: { courriersData: COURRIER[] }) => {
   
 
   const handleNoFilesAlert = (id: number) => {
-    setShowAlert(true);
     setAlertMessage(`Aucun fichier trouvé pour le courrier ${id}.`);
+    setShowAlert(true);
     setTimeout(() => setShowAlert(false), 5000);
   };
 

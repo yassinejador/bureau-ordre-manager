@@ -4,11 +4,11 @@ import React, { useState } from "react";
 import { COURRIER } from "@/types/courrier";
 import Link from "next/link";
 import dateformat from "../../../helpers/dateformat";
-import CourrierItem from "@/app/Actions/supprimercourrierdeparts/page"; // Import the CourrierItem component
+import CourrierItem from "@/app/actions/supprimercourrierdeparts/page"; // Import the CourrierItem component
 import Alert from "@/components/Alerts/Alert"; // Import Alert component
-import ListFichiers from "@/app/Actions/afficherfichiersdeparts/page";
-import DowloadFichiers from "@/app/Actions/telechargerfichierdeparts/page";
-import DeleteCourrier from "@/app/Actions/supprimercourrierdeparts/page";
+import ListFichiers from "@/app/actions/afficherfichiersdeparts/page";
+import DowloadFichiers from "@/app/actions/telechargerfichierdeparts/page";
+import DeleteCourrier from "@/app/actions/supprimercourrierdeparts/page";
 
 const TableDeparts = ({ courriersData }: { courriersData: COURRIER[] }) => {
   const [courriers, setCourriers] = useState(courriersData);

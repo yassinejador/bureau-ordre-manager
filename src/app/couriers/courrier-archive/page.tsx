@@ -6,9 +6,9 @@ import { Metadata } from "next";
 
 
 export const metadata: Metadata = {
-  title: "Courriers Archivees",
+  title: "Courriers Archivés",
   description:
-    "Liste des Courriers Archivees",
+    "Liste des Courriers Archivés",
 };
 
 const CourrierArchive = async () => {
