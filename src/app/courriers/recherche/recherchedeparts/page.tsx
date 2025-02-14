@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 const FormElementsPage = () => {
   return (
     <DefaultLayout>
-      <Breadcrumb pageName="Départ Filtrés" />
+      <Breadcrumb pageName="Départs Filtrés" />
       <DepartsPage/>
     </DefaultLayout>
   );

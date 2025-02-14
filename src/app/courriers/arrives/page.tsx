@@ -6,8 +6,8 @@ import TableArrives from "@/components/Tables/TableArrives";
 import { COURRIER } from "@/types/courrier";
 
 export const metadata: Metadata = {
-  title: "Courriers Arrivés",
-  description: "Liste des courriers arrivés",
+  title: "Courriers Arrivées",
+  description: "Liste des courriers arrivées",
 };
 
 async function fetchCourriers(): Promise<COURRIER[]> {
@@ -33,7 +33,7 @@ const Courriers = async () => {
 
   return (
     <DefaultLayout>
-      <Breadcrumb pageName="Arrivées" />
+      <Breadcrumb pageName="Arrivées de courriers" />
       <div className="flex flex-col gap-10">
         <TableArrives courriersData={courriers} />
       </div>

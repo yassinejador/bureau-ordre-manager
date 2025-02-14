@@ -61,7 +61,7 @@ const TableFiches = () => {
 
   return (
     <DefaultLayout>
-      <Breadcrumb pageName="Arrivés" />
+      <Breadcrumb pageName=" Détails courriers Arrivés" />
       <div className="p-6 bg-white shadow-lg rounded-lg dark:bg-gray-800">
         <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
           Détails du courrier #{id}
