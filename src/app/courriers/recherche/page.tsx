@@ -4,9 +4,9 @@ import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import RechercheForm from "@/components/BarreRecherche/barrerecherche";
 export const metadata: Metadata = {
-  title: "Recherche Courriers",
+  title: "Recherche de courriers",
   description:
-    "Recherché les courriers arrivés et départs",
+    "Recherché les courriers arrivées et départs",
 };
 
 const FormElementsPage = () => {

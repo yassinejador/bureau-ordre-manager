@@ -105,8 +105,8 @@ const menuGroups = [
             label: "Courriers",
             route: "#",
             children: [
-              { label: "Courrier Arrivées", route: "/courriers/arrives" },
-              { label: "Courrier Dépats", route: "/courriers/departs" },
+              { label: "Courriers Arrivés", route: "/courriers/arrives" },
+              { label: "Courriers Départs", route: "/courriers/departs" },
               { label: "Recherche", route: "/courriers/recherche" },
             ],
           },
@@ -125,7 +125,7 @@ const menuGroups = [
             ],
           },
           {
-            label: "Couries Archivées",
+            label: "Courries Archivés",
             route: "/couriers/courrier-archive",
           },
         ],
@@ -149,7 +149,7 @@ const menuGroups = [
             ],
           },
           {
-            label: "Formulaires d'Ajoute",
+            label: "Formulaires d'Ajout",
             route: "#",
             children: [
               { label: "Ajouter un Utilisateur", route: "/utilisateur/nouveau" },
