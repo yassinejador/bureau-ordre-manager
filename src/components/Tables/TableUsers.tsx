@@ -76,13 +76,13 @@ const handleEdit = (user: USER) => {
           <div className="grid grid-cols-7 sm:grid-cols-7 rounded-sm bg-gray-200 dark:bg-meta-4">
          
             
-                <div className="p-3 text-center font-medium uppercase text-black dark:text-white">ID</div>
-                <div className="p-3 text-center font-medium uppercase text-black dark:text-white">Nom</div>
-                <div className="p-3 text-center font-medium uppercase text-black dark:text-white">Email</div>
-                <div className="p-3 text-center font-medium uppercase text-black dark:text-white">Rôle</div>
-                <div className="p-3 text-center font-medium uppercase text-black dark:text-white">Service</div>
-                <div className="p-3 text-center font-medium uppercase text-black dark:text-white">Etabllissement</div>
-                <div className="p-3 text-center font-medium uppercase text-black dark:text-white">Actions</div>
+                <div className="p-3 text-center font-medium  text-black dark:text-white">N° Utilisateur</div>
+                <div className="p-3 text-center font-medium  text-black dark:text-white">Nom</div>
+                <div className="p-3 text-center font-medium  text-black dark:text-white">Email</div>
+                <div className="p-3 text-center font-medium  text-black dark:text-white">Rôle</div>
+                <div className="p-3 text-center font-medium  text-black dark:text-white">Service</div>
+                <div className="p-3 text-center font-medium  text-black dark:text-white">Etabllissement</div>
+                <div className="p-3 text-center font-medium  text-black dark:text-white">Actions</div>
              
           </div>
           {/* Table Rows */}
@@ -90,13 +90,14 @@ const handleEdit = (user: USER) => {
                 <div key={user.id}
                 className={`grid grid-cols-7 sm:grid-cols-7 items-center border-b border-stroke dark:border-strokedark last:border-b-0`}
                 >
-                  <div className="p-3 text-center text-black dark:text-white">{user.id}</div>
+                  <div className="p-3  text-center text-black dark:text-white">{user.id}</div>
                   <div className="p-3 text-center text-black dark:text-white">{user.nom} </div>
                   <div className="p-3 text-center text-black dark:text-white">{user.email}</div>
                   <div className="p-3 text-center text-black dark:text-white">{user.role}</div>
                   <div className="p-3 text-center text-black dark:text-white">{user.service}</div>
                   <div className="p-3 text-center text-black dark:text-white">{user.etablissement}</div>
                   <div className="p-3 text-center text-black dark:text-white">
+                 
                   <button onClick={() => setEditingUser(user)} className="hover:text-primary">
                       <svg
                         className="fill-current"
@@ -142,6 +143,7 @@ const handleEdit = (user: USER) => {
                         />
                       </svg>
                     </button>
+                    
                     <button onClick={() => setSelectedUser(user)} className="hover:text-primary">
                       <svg
                         className="fill-current"
@@ -161,6 +163,7 @@ const handleEdit = (user: USER) => {
                         />
                       </svg>
                     </button>
+                    
                     
                   </div>
                   </div>

@@ -6,9 +6,9 @@ import { Metadata } from "next";
 
 
 export const metadata: Metadata = {
-  title: "Courriers Archivees",
+  title: "Courriers Archivés",
   description:
-    "Liste des Courriers Archivees",
+    "Liste des Courriers Archivés",
 };
 
 const CourrierArchive = async () => {
@@ -16,6 +16,7 @@ const CourrierArchive = async () => {
   const data = await response.json();
   const courriers = data.courriers || [];
   console.log("Données récupérées :", courriers);
+  
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Les Courriers Archivés" />

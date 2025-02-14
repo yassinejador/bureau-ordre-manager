@@ -40,13 +40,13 @@ const TableEtablissement = ({etablissements,setEtablissements} : TableEtablissem
        <div className="flex flex-col">
   {/* Table Header */}
   <div className="grid grid-cols-7 sm:grid-cols-7 rounded-sm bg-gray-200 dark:bg-meta-4">
-    <div className="p-3 text-center font-medium uppercase text-black dark:text-white">ID</div>
-    <div className="p-3 text-center font-medium uppercase text-black dark:text-white">Intitule</div>
-    <div className="p-3 text-center font-medium uppercase text-black dark:text-white">Ville</div>
-    <div className="p-3 text-center font-medium uppercase text-black dark:text-white">Contact</div>
-    <div className="p-3 text-center font-medium uppercase text-black dark:text-white">Fax</div>
-    <div className="p-3 text-center font-medium uppercase text-black dark:text-white">Adresse</div>
-    <div className="p-3 text-center font-medium uppercase text-black dark:text-white">Actions</div>
+    <div className="p-3 text-center font-medium  text-black dark:text-white">N° Etablissement</div>
+    <div className="p-3 text-center font-medium  text-black dark:text-white">Intitule</div>
+    <div className="p-3 text-center font-medium  text-black dark:text-white">Ville</div>
+    <div className="p-3 text-center font-medium  text-black dark:text-white">Contact</div>
+    <div className="p-3 text-center font-medium  text-black dark:text-white">Fax</div>
+    <div className="p-3 text-center font-medium  text-black dark:text-white">Adresse</div>
+    <div className="p-3 text-center font-medium  text-black dark:text-white">Actions</div>
   </div>
 
   {/* Table Rows */}

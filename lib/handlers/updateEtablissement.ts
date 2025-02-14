@@ -29,7 +29,7 @@ export const updateEtablissement = async (
       [intitule, adresse, ville,fax,telephone, id]
     );
 
-    await addLog ( authenticatedUser.id, `modifier du Table Etablissement nommé ${intitule}`);
+    await addLog ( authenticatedUser.id, `modifier du Table Etablissement intitulé ${intitule}`);
 
 
     return result;

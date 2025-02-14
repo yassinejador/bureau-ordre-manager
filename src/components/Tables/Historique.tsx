@@ -43,23 +43,25 @@ const Historique: React.FC = () => {
   }
 
   return (
+    <div className="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
+
     <div className="overflow-x-auto bg-white">
-      <h1 className="text-xl font-bold mb-4">Historique des Actions</h1>
+      
       <table className="min-w-full border-collapse border border-gray-300">
         <thead>
           <tr className="bg-gray-200">
-            <th className="border border-gray-300 px-4 py-2 text-left">Utilisateur</th>
-            <th className="border border-gray-300 px-4 py-2 text-left">Description</th>
-            <th className="border border-gray-300 px-4 py-2 text-left">Date</th>
+            <th className="min-w-[150px] px-4 py-4 text-center font-medium  text-black dark:text-white">Utilisateur</th>
+            <th className="min-w-[150px] px-4 py-4 text-center font-medium  text-black dark:text-white">Description</th>
+            <th className="min-w-[150px] px-4 py-4 text-center font-medium  text-black dark:text-white">Date</th>
           </tr>
         </thead>
         <tbody>
           {logs.length > 0 ? (
             logs.map((log) => (
               <tr key={log.id} className="border border-gray-300">
-                <td className="border border-gray-300 px-4 py-2">{log.nom || "Inconnu"}</td>
-                <td className="border border-gray-300 px-4 py-2">{log.description}</td>
-                <td className="border border-gray-300 px-4 py-2">
+                <td className="text-center text-black border-gray-300 px-4 py-2">{log.nom || "Inconnu"}</td>
+                <td className="text-center text-black border-gray-300 px-4 py-2">{log.description}</td>
+                <td className="text-center text-black border-gray-300 px-4 py-2">
                   {new Date(log.date_action).toLocaleString()}
                 </td>
               </tr>
@@ -71,6 +73,7 @@ const Historique: React.FC = () => {
           )}
         </tbody>
       </table>
+    </div>
     </div>
   );
 };

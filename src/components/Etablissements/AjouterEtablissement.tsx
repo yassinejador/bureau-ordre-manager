@@ -39,12 +39,14 @@ const AjouterEtablissement = ({ addEtablissements }: Props) => {
   };
 
   return (
-    <div className="bg-white p-6 rounded-md shadow-md w-full max-w-md mx-auto">
-      <h1 className="mb-6 text-xl font-semibold">Ajouter un Établissement</h1>
-      <form onSubmit={handleSubmit}>
-        {["intitule", "ville", "telephone", "fax", "adresse"].map((field) => (
+    <div className="bg-white p-6 rounded-md shadow-md w-full max-w-12xl mx-auto">
+      <h4 className="mb-6 text-xl font-semibold text-black dark:text-white">Ajouter Un Nouveau Etablissement</h4>
+      <form onSubmit={handleSubmit}
+            className="rounded-sm  border-stroke h-auto bg-white shadow-default dark:border-strokedark dark:bg-boxdark"
+      >
+        {["intitule", "adresse", "ville", "fax","telephone"  ].map((field) => (
           <div key={field} className="mb-4">
-            <label htmlFor={field} className="block font-medium">
+            <label htmlFor={field} className="p-2   mb-3 block text-sm font-medium text-black dark:text-white">
               {field.charAt(0).toUpperCase() + field.slice(1)}
             </label>
             <input
@@ -58,7 +60,7 @@ const AjouterEtablissement = ({ addEtablissements }: Props) => {
             />
           </div>
         ))}
-        <button type="submit" className="w-full px-4 py-2 bg-blue-600 text-white rounded-md">
+        <button type="submit" className="w-full  px-4 py-2 bg-blue-600 text-white rounded-md">
           Ajouter
         </button>
       </form>
