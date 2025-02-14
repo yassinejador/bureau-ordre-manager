@@ -122,7 +122,7 @@ const menuGroups = [
             ],
           },
           {
-            label: "Couries Archivés",
+            label: "Courries Archivés",
             route: "/couriers/courrier-archive",
           },
         ],
@@ -174,7 +174,7 @@ const menuGroups = [
             ],
           },
           {
-            label: "Formulaires d'Ajoute",
+            label: "Formulaires d'Ajout",
             route: "#",
             children: [
               { label: "Ajouter un Utilisateur", route: "/utilisateur/nouveau" },
