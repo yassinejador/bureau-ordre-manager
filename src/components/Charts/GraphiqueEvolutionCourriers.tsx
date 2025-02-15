@@ -75,12 +75,16 @@ const options: ApexOptions = {
   yaxis: {
     title: { text: "Nombre de courriers" },
     min: 0,
-    max: 300, // This will be dynamically updated
+    max: 300,
   },
 };
 
-const GraphiqueEvolutionCourriers: React.FC<GraphiqueEvolutionCourriersProps> = ({ data }) => {
-  const [selectedYear, setSelectedYear] = useState<string>(Object.keys(data)[0]);
+const GraphiqueEvolutionCourriers: React.FC<
+  GraphiqueEvolutionCourriersProps
+> = ({ data }) => {
+  const [selectedYear, setSelectedYear] = useState<string>(
+    Object.keys(data)[0],
+  );
 
   const handleYearChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedYear(event.target.value);
@@ -93,7 +97,10 @@ const GraphiqueEvolutionCourriers: React.FC<GraphiqueEvolutionCourriersProps> = 
 
   // Calcul dynamique du maximum
   const maxCourrierValue = useMemo(() => {
-    const allData = [...data[selectedYear].entrants, ...data[selectedYear].sortants];
+    const allData = [
+      ...data[selectedYear].entrants,
+      ...data[selectedYear].sortants,
+    ];
     const maxValue = Math.max(...allData);
     return maxValue + 5; // Ajouter 5 au max
   }, [data, selectedYear]);
@@ -108,11 +115,20 @@ const GraphiqueEvolutionCourriers: React.FC<GraphiqueEvolutionCourriersProps> = 
   };
 
   return (
-    <div className="col-span-12 rounded-sm border border-stroke bg-white px-5 pb-5 pt-7.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:col-span-8">
+    <div
+      id="chartOne"
+      className="col-span-12 rounded-sm border border-stroke bg-white px-5 pb-5 pt-7.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:col-span-8"
+    >
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold text-gray-800">Évolution des Courriers</h3>
+        <h3 className="text-lg font-semibold text-gray-800">
+          Évolution des Courriers
+        </h3>
         <div className="mb-4">
-          <select className="form-select" value={selectedYear} onChange={handleYearChange}>
+          <select
+            className="form-select"
+            value={selectedYear}
+            onChange={handleYearChange}
+          >
             {Object.keys(data).map((year) => (
               <option key={year} value={year}>
                 {year}
@@ -122,7 +138,7 @@ const GraphiqueEvolutionCourriers: React.FC<GraphiqueEvolutionCourriersProps> = 
         </div>
       </div>
 
-      <div id="chartOne" className="-ml-5">
+      <div className="-ml-5">
         <ReactApexChart
           options={updatedOptions}
           series={series}
