@@ -48,7 +48,10 @@ const GraphiqueRepartitionCourriers: React.FC<
   const series = [courriersEntrants, courriersSortants];
 
   return (
-    <div className="col-span-12 rounded-lg border border-stroke bg-white p-6 shadow xl:col-span-4">
+    <div
+      id="chartTwo"
+      className="col-span-12 rounded-lg border border-stroke bg-white p-6 shadow xl:col-span-4"
+    >
       <h5 className="text-lg font-semibold text-gray-800">
         Répartition des Courriers
       </h5>

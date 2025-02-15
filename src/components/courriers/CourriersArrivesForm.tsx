@@ -120,10 +120,12 @@ const CourriersArrivesForm = ({
           label="Expéditeur"
           value={formData.expediteur}
           onChange={(value) => handleChange("expediteur", value)}
-          options={expediteurs.map((expediteur) => ({
-            value: expediteur.id.toString(),
-            label: expediteur.intitule,
-          }))}
+          options={expediteurs
+            .filter((expediteur) => expediteur.intitule !== "FS")
+            .map((expediteur) => ({
+              value: expediteur.id.toString(),
+              label: expediteur.intitule,
+            }))}
         />
 
         <Select
