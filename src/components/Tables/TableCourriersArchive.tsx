@@ -21,9 +21,7 @@ const TableCourriersArchive = ({ courriers, setCourriers }: TableCourrierArchive
 
   return (
     <div className="rounded-sm border border-stroke bg-white px-5 pb-5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5">
-      <div className="bg-white text-black p-4 rounded-t-lg flex items-center justify-between rounded-sm border border-stroke bg-white px-5 pb-5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5">
-        <h4 className="mb-6 text-xl font-semibold text-black dark:text-white">Liste des Courriers Archivés</h4>
-      </div>
+      
 
       <div className="flex flex-col">
         {/* Table Header */}
