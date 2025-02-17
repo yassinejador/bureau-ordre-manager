@@ -4,7 +4,6 @@ use db_bureau_ordre_manager;
 INSERT INTO roles (role, date_creation) VALUES
 ('Direction', CURDATE()),
 ('Secrétariat général', CURDATE()),
-('Responsables de départements', CURDATE()),
 ('Agents administratifs', CURDATE());
 
 -- Insertion des permissions
@@ -134,7 +133,8 @@ INSERT INTO permissionDetails (role_id, permission_id, hasPermission) VALUES
 (1, 17, TRUE), -- Créer un établissement  
 (1, 18, TRUE), -- Modifier un établissement  
 (1, 19, TRUE), -- Télécharger les informations de l’établissement  
-(1, 20, TRUE), -- Générer le rapport  
+(1, 20, TRUE), -- Générer le rapport 
+(1, 21, TRUE), -- logs   
 
 -- Secrétariat général (role_id = 2) - Gestion des utilisateurs, rôles et établissements 
 (2, 7, TRUE),  -- Créer un utilisateur  
@@ -154,4 +154,12 @@ INSERT INTO permissionDetails (role_id, permission_id, hasPermission) VALUES
 (3, 4, TRUE),  -- Modifier un courrier  
 (3, 5, TRUE),  -- Archiver un courrier  
 (3, 6, TRUE);  -- Supprimer un courrier  
+
+INSERT INTO permissionDetails (role_id, permission_id, hasPermission)
+SELECT r.id, p.id, FALSE
+FROM roles r
+CROSS JOIN permissions p
+LEFT JOIN permissionDetails pd 
+    ON r.id = pd.role_id AND p.id = pd.permission_id
+WHERE pd.permission_id IS NULL;
 

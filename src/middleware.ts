@@ -9,7 +9,7 @@ import { NextRequest, NextResponse } from "next/server";
 export function middleware(req: NextRequest) {
   const token = req.cookies.get("auth_token")?.value;
   const path = req.nextUrl.pathname;
-  const role_id ="2";
+  const role_id ="1";
 
   if (token && path === "/login") {
     return NextResponse.redirect(new URL("/", req.url));
@@ -27,7 +27,6 @@ export function middleware(req: NextRequest) {
       "/roles",
       "/etablissements",
       "/utilisateur",
-      "/profile",
       "/logs",
       "/services",
     ], // L'agent administratif a accès uniquement aux courriers
@@ -39,7 +38,7 @@ export function middleware(req: NextRequest) {
   );
 
   if (isRestricted) {
-    return NextResponse.redirect(new URL("/", req.url));
+    return NextResponse.redirect(new URL("/profile", req.url));
   }
 
   return NextResponse.next();
