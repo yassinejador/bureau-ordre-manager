@@ -86,7 +86,8 @@ export const getAuthenticatedUser = async () => {
       users.password,
       users.nom, 
       users.prenom, 
-      roles.role, 
+      users.role_id,
+      roles.role,
       etablissements.intitule AS etablissement_intitule, 
       services.nom AS service_nom
       FROM users
