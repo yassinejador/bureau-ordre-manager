@@ -24,8 +24,8 @@ CREATE TABLE `departements`(
 );
 CREATE TABLE `fichiers`(
     `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `type_courrier` ENUM('confidentiel', 'urgent') NOT NULL,
-    `type_support` ENUM('papier', 'numerique') NOT NULL,
+    `type_courrier` ENUM('confidentiel', 'urgent')  NULL,
+    `type_support` ENUM('papier', 'numerique')  NULL,
     `fichier` VARCHAR(255) NOT NULL,
     `courrier_id` INT NOT NULL
 );
