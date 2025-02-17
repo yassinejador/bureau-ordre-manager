@@ -29,3 +29,11 @@ export const addPermission = async (nomPermission: number) => {
     return permissionAdded;
 };
 
+export const UserHasPermission = async (nomPermission: string, role_id: number) => {
+    const [hasPermission] = await pool.query(
+        "SELECT pd.hasPermission FROM permissiondetails  pd JOIN permissions p on p.id = pd.permission_id WHERE pd.role_id = ? and p.nom = ?;", [role_id, nomPermission]);
+
+    return hasPermission;
+};
+
+

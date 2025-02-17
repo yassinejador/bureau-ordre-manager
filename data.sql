@@ -1,5 +1,4 @@
-
-    use db_bureau_ordre_manager;
+use db_bureau_ordre_manager;
 
 -- Insertion des rôles
 INSERT INTO roles (role, date_creation) VALUES
@@ -9,16 +8,35 @@ INSERT INTO roles (role, date_creation) VALUES
 ('Agents administratifs', CURDATE());
 
 -- Insertion des permissions
-INSERT INTO permissions (nom,date_creation) VALUES 
-('Accéder au tableau de bord',now()),
-('Créer un nouveau courrier arriver',now()),
-('Créer un nouveau courrier depart',now()),
-('Supprimer un courrier',now()),
-('Archiver un courrier',now()),
-('Générer des rapports mensuels et annuels',now()),
-('Créer un role',now()),
-('Gérer les permissions',now()),
-('Consulter la liste des utilisateurs',now());
+INSERT INTO permissions (nom, date_creation) VALUES 
+('Consulter le tableau de bord', NOW()),
+-- Gestion des courriers
+('Consulter un courrier', NOW()),
+('Créer un courrier', NOW()),
+('Modifier un courrier', NOW()),
+('Archiver un courrier', NOW()),
+('Supprimer un courrier', NOW()),
+-- Gestion des utilisateurs
+('Créer un utilisateur', NOW()),
+('Modifier un utilisateur', NOW()),
+('Supprimer un utilisateur', NOW()),
+-- Gestion des rôles
+('Créer un rôle', NOW()),
+('Modifier un rôle', NOW()),
+('Supprimer un rôle', NOW()),
+-- Gestion des permissions
+('Créer une permission', NOW()),
+('Modifier une permission', NOW()),
+('Supprimer une permission', NOW()),
+('Affecter des permissions', NOW()),
+-- Gestion des établissements
+('Créer un établissement', NOW()),
+('Modifier un établissement', NOW()),
+('Télécharger les informations de l’établissement', NOW()),
+-- Génération des rapports
+('Générer le rapport', NOW()),
+-- Logs
+('Acces Logs', NOW());
 
 
 -- Insertion des établissements
@@ -93,48 +111,47 @@ INSERT INTO Logs (user_id, description, date_action) VALUES
 (1, 'Création de courrier', CURDATE()),
 (2, 'Modification de courrier', CURDATE());
 
--- Insertion des permissions détaillées
-INSERT INTO permissionDetails (role_id, permission_id, hasPermission) VALUES
--- Rôle 1 :
-(1, 1, TRUE),
-(1, 2, TRUE),
-(1, 3, TRUE),
-(1, 4, TRUE),
-(1, 5, TRUE),
-(1, 6, TRUE),
-(1, 7, TRUE),
-(1, 8, TRUE),
-(1, 9, TRUE),
+-- Insertion des permissions détaillées  
+INSERT INTO permissionDetails (role_id, permission_id, hasPermission) VALUES  
 
--- Rôle 2 :
-(2, 1, TRUE),
-(2, 2, TRUE),
-(2, 3, TRUE),
-(2, 4, TRUE),
-(2, 5, TRUE),
-(2, 6, TRUE),
-(2, 7, TRUE),
-(2, 8, TRUE),
-(2, 9, TRUE),
+-- Direction (role_id = 1) - A toutes les permissions  
+(1, 1, TRUE),  -- Consulter le tableau de bord  
+(1, 2, TRUE),  -- Consulter un courrier  
+(1, 3, TRUE),  -- Créer un courrier  
+(1, 4, TRUE),  -- Modifier un courrier  
+(1, 5, TRUE),  -- Archiver un courrier  
+(1, 6, TRUE),  -- Supprimer un courrier  
+(1, 7, TRUE),  -- Créer un utilisateur  
+(1, 8, TRUE),  -- Modifier un utilisateur  
+(1, 9, TRUE),  -- Supprimer un utilisateur  
+(1, 10, TRUE), -- Créer un rôle  
+(1, 11, TRUE), -- Modifier un rôle  
+(1, 12, TRUE), -- Supprimer un rôle  
+(1, 13, TRUE), -- Créer une permission  
+(1, 14, TRUE), -- Modifier une permission  
+(1, 15, TRUE), -- Supprimer une permission  
+(1, 16, TRUE), -- Affecter des permissions  
+(1, 17, TRUE), -- Créer un établissement  
+(1, 18, TRUE), -- Modifier un établissement  
+(1, 19, TRUE), -- Télécharger les informations de l’établissement  
+(1, 20, TRUE), -- Générer le rapport  
 
--- Rôle 3 :
-(3, 1, TRUE),
-(3, 2, TRUE),
-(3, 3, TRUE),
-(3, 4, TRUE),
-(3, 5, TRUE),
-(3, 6, TRUE),
-(3, 7, TRUE),
-(3, 8, TRUE),
-(3, 9, TRUE),
+-- Secrétariat général (role_id = 2) - Gestion des utilisateurs, rôles et établissements 
+(2, 7, TRUE),  -- Créer un utilisateur  
+(2, 8, TRUE),  -- Modifier un utilisateur  
+(2, 9, TRUE),  -- Supprimer un utilisateur  
+(2, 10, TRUE), -- Créer un rôle  
+(2, 11, TRUE), -- Modifier un rôle  
+(2, 12, TRUE), -- Supprimer un rôle  
+(2, 17, TRUE), -- Créer un établissement  
+(2, 18, TRUE), -- Modifier un établissement  
+(2, 19, TRUE), -- Télécharger les informations de l’établissement  
+(2, 20, TRUE), -- Générer le rapport  
 
--- Rôle 4 :
-(4, 1, TRUE),
-(4, 2, TRUE),
-(4, 3, TRUE),
-(4, 4, TRUE),
-(4, 5, TRUE),
-(4, 6, TRUE),
-(4, 7, TRUE),
-(4, 8, TRUE),
-(4, 9, TRUE);
+-- Agent administratif (role_id = 3) - Gestion des courriers uniquement  
+(3, 2, TRUE),  -- Consulter un courrier  
+(3, 3, TRUE),  -- Créer un courrier  
+(3, 4, TRUE),  -- Modifier un courrier  
+(3, 5, TRUE),  -- Archiver un courrier  
+(3, 6, TRUE);  -- Supprimer un courrier  
+
