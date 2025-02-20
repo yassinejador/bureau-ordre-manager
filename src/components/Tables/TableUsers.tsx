@@ -73,7 +73,7 @@ const handleEdit = (user: USER) => {
 
         <div className="flex flex-col">
            {/* Table Header */}
-          <div className="grid grid-cols-7 sm:grid-cols-7 rounded-sm bg-gray-200 dark:bg-meta-4">
+          <div className="grid grid-cols-[1fr,1fr,2fr,1fr,1fr,1fr,auto] rounded-sm bg-gray-200 dark:bg-meta-4">
          
             
                 <div className="p-3 text-center font-medium  text-black dark:text-white">N° Utilisateur</div>
@@ -88,7 +88,7 @@ const handleEdit = (user: USER) => {
           {/* Table Rows */}
               {users.map((user) => (
                 <div key={user.id}
-                className={`grid grid-cols-7 sm:grid-cols-7 items-center border-b border-stroke dark:border-strokedark last:border-b-0`}
+                className={`grid grid-cols-[1fr,1fr,2fr,1fr,1fr,1fr,auto] items-center border-b border-stroke dark:border-strokedark last:border-b-0`}
                 >
                   <div className="p-3  text-center text-black dark:text-white">{user.id}</div>
                   <div className="p-3 text-center text-black dark:text-white">{user.nom} </div>

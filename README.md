@@ -31,7 +31,8 @@ Fonctionnalités principales :
    ```bash
    node -v
    ```
-[Télécharger Node.js](https://nodejs.org/) si non installé
+
+   [Télécharger Node.js](https://nodejs.org/) si non installé
 
 2. **npm** (inclus avec Node.js) :
 
@@ -44,6 +45,7 @@ Fonctionnalités principales :
    ```bash
    mysql --version
    ```
+
    [Installer MySQL](https://dev.mysql.com/downloads/)
 
 ---
@@ -73,13 +75,13 @@ npm install
 
 ### 4. Configuration de l'environnement (`.env`)
 
-#### Copier `.env.example` dans `.env`  
+#### Copier `.env.example` dans `.env`
 
 ```bash
 cp .env.example .env
 ```
 
-#### Puis le configurer :  
+#### Puis le configurer :
 
 ```env
 DB_HOST=localhost
@@ -104,21 +106,24 @@ npm run dev
 
 ---
 
-## 🔐 Accès utilisateurs  
+## 🔐 Accès utilisateurs
 
-**Identifiants par défaut** :  
+**Identifiants par défaut** :
 
-### 📌 Direction  
-- **Email** : `admin.admin@fs.ucd.ac.ma`  
-- **Mot de passe** : `Admin@Admin`  
+### 📌 Direction
 
-### 📌 Secrétariat général  
-- **Email** : `secretariat.secretariat@fs.ucd.ac.ma`  
-- **Mot de passe** : `Secretariat@Secretariat`  
+- **Email** : `admin.admin@fs.ucd.ac.ma`
+- **Mot de passe** : `Admin@Admin`
 
-### 📌 Agents administratifs  
-- **Email** : `agent.administratif@fs.ucd.ac.ma`  
-- **Mot de passe** : `Agent@Administratif`  
+### 📌 Secrétariat général
+
+- **Email** : `secretariat.secretariat@fs.ucd.ac.ma`
+- **Mot de passe** : `Secretariat@Secretariat`
+
+### 📌 Agents administratifs
+
+- **Email** : `agent.administratif@fs.ucd.ac.ma`
+- **Mot de passe** : `Agent@Administratif`
 
 ---
 
@@ -131,3 +136,11 @@ npm run dev
 | Yassine JADOR     | [yassinejador](https://github.com/yassinejador)   |
 | Sanaa AZZA        | [sanaaazza](https://github.com/sanaaazza)         |
 
+## 👥 Les Taches
+
+| Membre            | Taches                                                                                   |
+| ----------------- | ---------------------------------------------------------------------------------------- |
+| Oussama TAGHLAOUI | Autentification, Dashbord, Profile, AjouterUtilisateur, AjouterCourrier                  |
+| Yassmin ELBAZ     | Courrier Archivé, ListeUtilisateur, ListeEtablissement, AjouterEtablissement, Historique |
+| Yassine JADOR     | ListeRole, ListePrmission, ListeServices, AjouterRole, AjouterService, AjouterPermission |
+| Sanaa AZZA        | CourrierDepart, CourrirArrivé, Recherche Et Filtrage                                     |
