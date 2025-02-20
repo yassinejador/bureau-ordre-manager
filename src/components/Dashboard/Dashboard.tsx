@@ -4,14 +4,14 @@ import GraphiqueRepartitionCourriers from "../Charts/GraphiqueRepartitionCourrie
 import { getUserCount } from "../../../lib/queries/users";
 import { getEtablissementCount } from "../../../lib/queries/etablissements";
 import { getCourriersCountByType } from "../../../lib/queries/courriers";
-import { getCourriersDataByYearMonth } from "../../../lib/queries/courriers";
+import { getCourriersData } from "../../../lib/queries/courriers"; // Mise à jour de l'import
 import GenererRapport from "@/components/Gen/GenererRapport";
 
 const Dashboard = async () => {
   const totalUsers = await getUserCount();
   const totalEtablissements = await getEtablissementCount();
   const courriersCount = await getCourriersCountByType();
-  const courriersData = await getCourriersDataByYearMonth();
+  const courriersDataComplete = await getCourriersData();
 
   const stats = [
     {
@@ -60,12 +60,11 @@ const Dashboard = async () => {
         ))}
       </div>
 
-      {/* Section des graphiques */}
       <div className="mt-6 grid grid-cols-12 gap-6">
-        {/* Graphique d'évolution des courriers */}
-        <GraphiqueEvolutionCourriers data={courriersData} />
-
-        {/* Graphique de répartition des courriers */}
+        <GraphiqueEvolutionCourriers
+          dataByMonth={courriersDataComplete.byMonth}
+          dataByDay={courriersDataComplete.byDay}
+        />
         <GraphiqueRepartitionCourriers
           courriersEntrants={courriersCount["Arrivé"] || 0}
           courriersSortants={courriersCount["Départ"] || 0}
