@@ -1,3 +1,5 @@
+
+
 import { RowDataPacket } from "mysql2";
 import pool from "../db";
 
@@ -24,6 +26,18 @@ export const fetchUsersById = async (id: number) => {
   const [users] = await pool.query("SELECT * FROM users where id=?", [id]);
   return users;
 };
+
+export const fetchUsersByIdWithRole = async (id: number) => {
+  const query = `
+    SELECT users.*, roles.role AS role_name
+    FROM users
+    LEFT JOIN roles ON users.role_id = roles.id
+    WHERE users.id = ?
+  `;
+  const [users] = await pool.query(query, [id]);
+  return users.length > 0 ? users[0] : null;
+};
+
 
 export const addUser = async (
   prenom: string,
