@@ -135,12 +135,3 @@ npm run dev
 | Yassmin ELBAZ     | [yassminelbaz](https://github.com/yassminelbaz)   |
 | Yassine JADOR     | [yassinejador](https://github.com/yassinejador)   |
 | Sanaa AZZA        | [sanaaazza](https://github.com/sanaaazza)         |
-
-## 👥 Les Taches
-
-| Membre            | Taches                                                                                   |
-| ----------------- | ---------------------------------------------------------------------------------------- |
-| Oussama TAGHLAOUI | Autentification, Dashbord, Profile, AjouterUtilisateur, AjouterCourrier                  |
-| Yassmin ELBAZ     | Courrier Archivé, ListeUtilisateur, ListeEtablissement, AjouterEtablissement, Historique |
-| Yassine JADOR     | ListeRole, ListePrmission, ListeServices, AjouterRole, AjouterService, AjouterPermission |
-| Sanaa AZZA        | CourrierDepart, CourrirArrivé, Recherche Et Filtrage                                     |
