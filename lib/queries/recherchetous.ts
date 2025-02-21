@@ -21,7 +21,7 @@ export async function getCourriers(filters: {
     JOIN etablissements e2 ON c.destination = e2.id
     LEFT JOIN users u ON c.traite_par = u.id
     JOIN etats et ON c.etat_id = et.id
-    WHERE c.type = ?
+    WHERE c.type = ? AND date_suppression IS NULL
   `;
   
   let values: any[] = [filters.type];
